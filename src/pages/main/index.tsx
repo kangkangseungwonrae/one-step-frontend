@@ -50,7 +50,7 @@ export default function Main() {
 					<Step4
 						selectedId={context.selectedId}
 						curTime={context.curTime}
-						onNext={() => console.log('go back')}
+						onNext={() => history.push('step1')}
 						onBack={(pausedTime: number) => history.push('step3', { ...context, pausedTime })}
 					/>
 				)}
