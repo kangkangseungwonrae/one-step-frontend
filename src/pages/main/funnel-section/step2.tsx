@@ -10,6 +10,12 @@ type Step2Props = {
 	onBack: () => void;
 };
 
+/**
+ * Step2: 선택된 행동을 보여줌(확인용)
+ * @param selectedId: Step1에서 선택된 행동의 id
+ * @param onNext: 다음 단계로 이동하는 콜백 함수
+ * @param onBack: 이전 단계로 이동하는 콜백 함수
+ */
 export default function Step2({ selectedId, onNext, onBack }: Step2Props) {
 	const { id, task, time, keyword } = CAROUSEL_MOCK_DICT[selectedId];
 	return (

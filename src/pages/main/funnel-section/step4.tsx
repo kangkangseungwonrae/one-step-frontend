@@ -12,8 +12,11 @@ type Step4Props = {
 	onBack: (pausedTime: number) => void;
 };
 
-// 초를 00분 00초 형식으로 변환
-// minutes이 0인 경우 초 단위만 표시
+/**
+ * 초 -> 00분 00초 형식으로 변환, 분이 0일 경우에는 00초 형식으로 변환
+ * @param time 초 단위의 시간
+ * @returns 포맷팅된 시간 문자열
+ */
 const formatTime = (time: number) => {
 	const minutes = Math.floor(time / 60);
 	const seconds = time % 60;
@@ -25,6 +28,14 @@ const formatTime = (time: number) => {
 	return `${minutes}분${seconds}초`;
 };
 
+/**
+ * Step4: 행동 완료 후 확인
+ * @param selectedId: Step1에서 선택된 행동의 id
+ * @param curTime: Step3에서 진행된 시간
+ * @param onNext: 다음 단계로 이동하는 콜백 함수
+ * @param onBack: 이전 단계로 이동하는 콜백 함수
+ * @returns
+ */
 export default function Step4({ selectedId, curTime, onNext, onBack }: Step4Props) {
 	const { task, keyword } = CAROUSEL_MOCK_DICT[selectedId];
 

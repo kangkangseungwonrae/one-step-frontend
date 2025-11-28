@@ -6,6 +6,10 @@ export type TaskItem = {
 };
 export type TaskDict = Record<number, TaskItem>;
 
+/**
+ * 캐러셀에 표시할 할 일 목록 (id, 키워드, 할 일, 예상 소요 시간)
+ * 추후 API 연동 시 대체 예정
+ */
 export const CAROUSEL_MOCK_DATA: TaskItem[] = [
 	{ id: 1, keyword: '침대', task: '침대 머리맡 3분 정돈(베개·이불 각도 맞추기)', time: 60 },
 	{ id: 2, keyword: '책상', task: '책상 위 물건 3개 제자리 두기', time: 60 },
@@ -74,6 +78,10 @@ export const CAROUSEL_MOCK_DATA: TaskItem[] = [
 	{ id: 65, keyword: '파도 소리', task: '파도소리 들으며 깊게 호흡 5번', time: 60 },
 ];
 
+/**
+ * id를 키로 하는 할 일 딕셔너리
+ * 추후 API 연동 시 대체 예정
+ */
 export const CAROUSEL_MOCK_DICT: TaskDict = CAROUSEL_MOCK_DATA.reduce((acc, item) => {
 	acc[item.id] = item;
 	return acc;

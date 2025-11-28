@@ -5,7 +5,7 @@ import { CAROUSEL_MOCK_DICT } from '@/mocks/data';
 
 type Step3Props = {
 	selectedId: number;
-	pausedTime?: number; // Step4에서 다시 Step3으로 이동했을 때 진행했던 시간 복구
+	pausedTime?: number;
 	onNext: (selectedId: number, curTime: number) => void;
 };
 
@@ -15,13 +15,18 @@ const formatTime = (time: number) => {
 	return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 };
 
+/**
+ * Step3: 선택된 행동의 타이머 진행 컴포넌트
+ * @param selectedId: Step1에서 선택된 행동의 id
+ * @param pausedTime: Step4에서 다시 Step3으로 이동했을 때 진행했던 시간 복구용
+ * @param onNext: 행동 완료 후 다음 단계로 이동하는 콜백 함수
+ */
 export default function Step3({ selectedId, pausedTime = 0, onNext }: Step3Props) {
 	const { task } = CAROUSEL_MOCK_DICT[selectedId];
 
 	const [isPaused, setIsPaused] = useState(false);
 	const [curTime, setCurTime] = useState<number>(pausedTime);
 
-	// 컴포넌트 렌더링 하자마자 타이머 시작
 	useEffect(() => {
 		if (isPaused) return;
 

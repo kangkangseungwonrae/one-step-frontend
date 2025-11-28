@@ -23,9 +23,7 @@ export default function Main() {
 	return (
 		<div className="h-full w-full">
 			<funnel.Render
-				step1={({ context, history }) => (
-					<Step1 id={context.selectedId} onNext={(selectedId: number) => history.push('step2', { selectedId })} />
-				)}
+				step1={({ history }) => <Step1 onNext={(selectedId: number) => history.push('step2', { selectedId })} />}
 				step2={({ context, history }) => (
 					<Step2
 						selectedId={context.selectedId}

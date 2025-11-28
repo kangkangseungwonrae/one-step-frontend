@@ -5,7 +5,6 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { CAROUSEL_MOCK_DATA } from '@/mocks/data';
 
 type Step1Props = {
-	id: number;
 	onNext: (id: number) => void;
 };
 
@@ -15,6 +14,10 @@ export const getGeneralTime = (time: 60 | 300 | 600) => {
 	if (time === 600) return '10분';
 };
 
+/**
+ * Step1: 캐러셀 형식의 행동 제안 컴포넌트
+ * @param onNext 다음 단계로 이동하는 콜백 함수
+ */
 export default function Step1({ onNext }: Step1Props) {
 	return (
 		<main className="flex h-full flex-col items-center justify-center gap-4">
