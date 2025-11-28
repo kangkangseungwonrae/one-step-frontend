@@ -21,7 +21,20 @@
 			"react": "recommended"
 		},
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"a11y": {
+				"useSemanticElements": "off"
+			},
+			"nursery": {
+				"useSortedClasses": {
+					"level": "error",
+					"fix": "safe",
+					"options": {
+						"attributes": ["classList"],
+						"functions": ["clsx", "cva", "cn"]
+					}
+				}
+			}
 		}
 	},
 	"javascript": {
@@ -33,6 +46,11 @@
 			"quoteStyle": "single",
 			"semicolons": "always",
 			"trailingCommas": "all"
+		}
+	},
+	"css": {
+		"parser": {
+			"tailwindDirectives": true
 		}
 	},
 	"json": {
