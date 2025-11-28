@@ -5,6 +5,7 @@ import { CAROUSEL_MOCK_DICT } from '@/mocks/data';
 
 type Step3Props = {
 	selectedId: number;
+	pausedTime?: number; // Step4에서 다시 Step3으로 이동했을 때 진행했던 시간 복구
 	onNext: (selectedId: number, curTime: number) => void;
 };
 
@@ -14,24 +15,21 @@ const formatTime = (time: number) => {
 	return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 };
 
-export default function Step3({ selectedId, onNext }: Step3Props) {
+export default function Step3({ selectedId, pausedTime = 0, onNext }: Step3Props) {
 	const { task } = CAROUSEL_MOCK_DICT[selectedId];
 
 	const [isPaused, setIsPaused] = useState(false);
-	const [curTime, setCurTime] = useState<number>(0);
+	const [curTime, setCurTime] = useState<number>(pausedTime);
 
 	// 컴포넌트 렌더링 하자마자 타이머 시작
 	useEffect(() => {
-		// isPaused가 true이면 타이머 중지
 		if (isPaused) return;
 
-		// 1초마다 시간 증가
-		const timer = setTimeout(() => {
+		const interval = setInterval(() => {
 			setCurTime((prev) => prev + 1);
 		}, 1000);
 
-		// cleanup: 컴포넌트 언마운트 또는 재렌더링 시 타이머 정리
-		return () => clearTimeout(timer);
+		return () => clearInterval(interval);
 	}, [isPaused]);
 
 	return (

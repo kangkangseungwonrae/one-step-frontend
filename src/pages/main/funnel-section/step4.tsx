@@ -1,4 +1,5 @@
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { CAROUSEL_MOCK_DICT } from '@/mocks/data';
 
@@ -6,6 +7,7 @@ type Step4Props = {
 	selectedId: number;
 	curTime: number;
 	onNext: () => void;
+	onBack: (pausedTime: number) => void;
 };
 
 // 초를 00분 00초 형식으로 변환
@@ -21,7 +23,7 @@ const formatTime = (time: number) => {
 	return `${minutes}분${seconds}초`;
 };
 
-export default function Step4({ selectedId, curTime, onNext }: Step4Props) {
+export default function Step4({ selectedId, curTime, onNext, onBack }: Step4Props) {
 	const { task, keyword } = CAROUSEL_MOCK_DICT[selectedId];
 
 	return (
@@ -36,14 +38,26 @@ export default function Step4({ selectedId, curTime, onNext }: Step4Props) {
 					</CardContent>
 				</Card>
 			</section>
-			<section className="flex gap-2">
-				<Card className="w-full max-w-sm">
+			<section className="flex w-full max-w-sm gap-2">
+				<Card className="w-full">
 					<CardContent className="flex flex-col items-center justify-center">
 						<span className="font-semibold text-neutral-800 text-sm">
 							이번 행동을 약 {formatTime(curTime)} 동안 해냈어요.
 						</span>
 					</CardContent>
 				</Card>
+			</section>
+			<section className="flex w-full max-w-sm flex-col gap-2">
+				<Button
+					variant="secondary"
+					onClick={() => {
+						console.log('curTime in Step 4:', curTime);
+						onBack(curTime);
+					}}
+				>
+					아직 안 끝남
+				</Button>
+				<Button onClick={onNext}>완료했어요</Button>
 			</section>
 		</main>
 	);
