@@ -17,7 +17,7 @@ export default function Step2({ selectedId, onNext, onBack }: Step2Props) {
 			<section>
 				<div>어 너 이거 골랐구나 한 번 해봐</div>
 			</section>
-			<section className="w-full max-w-xs">
+			<section className="w-full max-w-sm">
 				<div className="p-1">
 					<Card onClick={() => onNext(selectedId)}>
 						<CardContent className="flex aspect-square flex-col items-center justify-center gap-6 p-6">
@@ -36,7 +36,7 @@ export default function Step2({ selectedId, onNext, onBack }: Step2Props) {
 					</Card>
 				</div>
 			</section>
-			<section className="flex w-full max-w-xs flex-col gap-2">
+			<section className="flex w-full max-w-sm flex-col gap-2">
 				<Button variant="secondary" onClick={() => onNext(id)}>
 					시작하기
 				</Button>

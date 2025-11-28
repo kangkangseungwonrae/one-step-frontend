@@ -22,7 +22,7 @@ export default function Step1({ onNext }: Step1Props) {
 				<div>하이루^^ 오늘 뭐 해볼지 하나 정해봐.</div>
 			</section>
 			<section>
-				<Carousel className="w-full max-w-xs">
+				<Carousel className="w-full max-w-sm">
 					<CarouselContent>
 						{CAROUSEL_MOCK_DATA.map((item) => {
 							return (
