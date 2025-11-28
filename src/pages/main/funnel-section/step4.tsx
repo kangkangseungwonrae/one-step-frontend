@@ -50,13 +50,7 @@ export default function Step4({ selectedId, curTime, onNext, onBack }: Step4Prop
 				</Card>
 			</section>
 			<section className="flex w-full max-w-sm flex-col gap-2">
-				<Button
-					variant="secondary"
-					onClick={() => {
-						console.log('curTime in Step 4:', curTime);
-						onBack(curTime);
-					}}
-				>
+				<Button variant="secondary" onClick={() => onBack(curTime)}>
 					아직 안 끝남
 				</Button>
 				<Dialog>
