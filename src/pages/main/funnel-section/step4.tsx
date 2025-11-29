@@ -1,9 +1,7 @@
-import { Dialog } from '@radix-ui/react-dialog';
-
+import MoodSelector from '../components/mood-selector';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { DialogClose, DialogContent, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
 import { CAROUSEL_MOCK_DICT } from '@/mocks/data';
 
 type Step4Props = {
@@ -65,29 +63,7 @@ export default function Step4({ selectedId, curTime, onNext, onBack }: Step4Prop
         <Button variant="secondary" onClick={() => onBack(curTime)}>
           아직 안 끝남
         </Button>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="outline">Share</Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-md">
-            <div className="flex items-center gap-2">
-              <span>지금 기분은 어느 쪽에 가까운가요?</span>
-              <Button variant="ghost" size="icon" className="p-0">
-                ❓
-              </Button>
-            </div>
-            <DialogFooter className="flex *:flex-1">
-              <DialogClose asChild>
-                <Button type="button" variant="secondary">
-                  Close
-                </Button>
-              </DialogClose>
-              <Button type="button" onClick={onNext}>
-                다음
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+        <MoodSelector onNext={onNext} />
       </section>
     </main>
   );

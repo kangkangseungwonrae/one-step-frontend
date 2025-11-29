@@ -24,11 +24,7 @@ export default function Step1({ previousAnswers, onNext }: Step1Props) {
         <CheckboxGroupItem value="other">기타</CheckboxGroupItem>
       </CheckboxGroup>
 
-      <Button
-        onClick={() => onNext(selected)}
-        disabled={selected.length === 0}
-        className="mt-6 w-full rounded-full bg-primary px-6 py-4 text-white font-medium disabled:opacity-50"
-      >
+      <Button variant="default" onClick={() => onNext(selected)} disabled={selected.length === 0} className="mt-6">
         다음
       </Button>
     </div>
