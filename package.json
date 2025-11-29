@@ -6,7 +6,6 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc -b && vite build",
-		"check": "pnpm exec biome check --write",
 		"preview": "vite preview",
 		"prepare": "husky install"
 	},
@@ -31,7 +30,6 @@
 		"tailwindcss": "^4.1.17"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.3.7",
 		"@eslint/js": "^9.39.1",
 		"@types/node": "^24.10.1",
 		"@types/react": "^19.2.5",
