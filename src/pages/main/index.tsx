@@ -22,38 +22,36 @@ export default function Main() {
   });
 
   return (
-    <div className="h-full w-full">
-      <funnel.Render
-        step1={({ history }) => <Step1 onNext={(selectedId: number) => history.push('step2', { selectedId })} />}
-        step2={({ context, history }) => (
-          <Step2
-            selectedId={context.selectedId}
-            onNext={(selectedId) =>
-              history.push('step3', {
-                ...context,
-                selectedId,
-                pausedTime: 0,
-              })
-            }
-            onBack={() => history.back()}
-          />
-        )}
-        step3={({ context, history }) => (
-          <Step3
-            selectedId={context.selectedId}
-            pausedTime={context.pausedTime}
-            onNext={(selectedId: number, curTime: number) => history.push('step4', { selectedId, curTime })}
-          />
-        )}
-        step4={({ context, history }) => (
-          <Step4
-            selectedId={context.selectedId}
-            curTime={context.curTime}
-            onNext={() => history.push('step1')}
-            onBack={(pausedTime: number) => history.push('step3', { ...context, pausedTime })}
-          />
-        )}
-      />
-    </div>
+    <funnel.Render
+      step1={({ history }) => <Step1 onNext={(selectedId: number) => history.push('step2', { selectedId })} />}
+      step2={({ context, history }) => (
+        <Step2
+          selectedId={context.selectedId}
+          onNext={(selectedId) =>
+            history.push('step3', {
+              ...context,
+              selectedId,
+              pausedTime: 0,
+            })
+          }
+          onBack={() => history.back()}
+        />
+      )}
+      step3={({ context, history }) => (
+        <Step3
+          selectedId={context.selectedId}
+          pausedTime={context.pausedTime}
+          onNext={(selectedId: number, curTime: number) => history.push('step4', { selectedId, curTime })}
+        />
+      )}
+      step4={({ context, history }) => (
+        <Step4
+          selectedId={context.selectedId}
+          curTime={context.curTime}
+          onNext={() => history.push('step1')}
+          onBack={(pausedTime: number) => history.push('step3', { ...context, pausedTime })}
+        />
+      )}
+    />
   );
 }

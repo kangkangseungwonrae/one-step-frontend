@@ -37,47 +37,46 @@ export default function Onboarding() {
   });
 
   return (
-    <div className="h-full w-full">
-      <funnel.Render
-        step1={({ history, context }) => (
-          <Step1
-            previousAnswers={context.answers}
-            onNext={(answer) => {
-              history.push('step2', {
-                answers: {
-                  question1: answer,
-                },
-              });
-            }}
-          />
-        )}
-        step2={({ history, context }) => (
-          <Step2
-            previousAnswers={context.answers}
-            onNext={(answer) => {
-              history.push('step3', {
-                answers: {
-                  ...context.answers,
-                  question2: answer,
-                },
-              });
-            }}
-            onBack={() => {
-              history.push('step1', {
-                answers: context.answers,
-              });
-            }}
-          />
-        )}
-        step3={({ history, context }) => (
-          <Step3
-            onNext={(answer) => {
-              const finalAnswers = {
+    <funnel.Render
+      step1={({ history, context }) => (
+        <Step1
+          previousAnswers={context.answers}
+          onNext={(answer) => {
+            history.push('step2', {
+              answers: {
+                question1: answer,
+              },
+            });
+          }}
+        />
+      )}
+      step2={({ history, context }) => (
+        <Step2
+          previousAnswers={context.answers}
+          onNext={(answer) => {
+            history.push('step3', {
+              answers: {
                 ...context.answers,
-                question3: answer,
-              };
+                question2: answer,
+              },
+            });
+          }}
+          onBack={() => {
+            history.push('step1', {
+              answers: context.answers,
+            });
+          }}
+        />
+      )}
+      step3={({ history, context }) => (
+        <Step3
+          onNext={(answer) => {
+            const finalAnswers = {
+              ...context.answers,
+              question3: answer,
+            };
 
-              const message = `
+            const message = `
 온보딩이 완료되었습니다!
 
 질문1: ${finalAnswers.question1?.join(', ')}
@@ -87,18 +86,17 @@ export default function Onboarding() {
 메인 페이지로 이동하시겠습니까?
                 `.trim();
 
-              if (window.confirm(message)) {
-                navigate('/');
-              }
-            }}
-            onBack={() => {
-              history.push('step2', {
-                answers: context.answers,
-              });
-            }}
-          />
-        )}
-      />
-    </div>
+            if (window.confirm(message)) {
+              navigate('/');
+            }
+          }}
+          onBack={() => {
+            history.push('step2', {
+              answers: context.answers,
+            });
+          }}
+        />
+      )}
+    />
   );
 }
