@@ -13,7 +13,7 @@ export const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true, // 쿠키 자동 전송
+  withCredentials: true, // 쿠키 자동 전송,
 });
 
 // refresh token 관련 상태 관리

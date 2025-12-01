@@ -1,5 +1,8 @@
 import { useFunnel } from '@use-funnel/react-router';
 
+import { useGetTasks } from '@/api/queries/useGetTasks';
+import Layout from '@/components/layout';
+
 import Step1 from './funnel-section/step1';
 import Step2 from './funnel-section/step2';
 import Step3 from './funnel-section/step3';
@@ -21,37 +24,54 @@ export default function Main() {
     },
   });
 
+  const { data: tasks } = useGetTasks({
+    limit: 5,
+    categories: ['신체 활동', '정신 건강'],
+    keywords: ['생산성', '휴식'],
+  });
+
+  console.log('tasks: ', tasks);
+
+  // useEffect(() => {
+  //   // 온보딩이 안되어 있으면 온보딩 페이지로 리다이렉트
+  //   if (profile && !profile.onboarding) {
+  //     navigate('/onboarding');
+  //   }
+  // }, []);
+
   return (
-    <funnel.Render
-      step1={({ history }) => <Step1 onNext={(selectedId: number) => history.push('step2', { selectedId })} />}
-      step2={({ context, history }) => (
-        <Step2
-          selectedId={context.selectedId}
-          onNext={(selectedId) =>
-            history.push('step3', {
-              ...context,
-              selectedId,
-              pausedTime: 0,
-            })
-          }
-          onBack={() => history.back()}
-        />
-      )}
-      step3={({ context, history }) => (
-        <Step3
-          selectedId={context.selectedId}
-          pausedTime={context.pausedTime}
-          onNext={(selectedId: number, curTime: number) => history.push('step4', { selectedId, curTime })}
-        />
-      )}
-      step4={({ context, history }) => (
-        <Step4
-          selectedId={context.selectedId}
-          curTime={context.curTime}
-          onNext={() => history.push('step1')}
-          onBack={(pausedTime: number) => history.push('step3', { ...context, pausedTime })}
-        />
-      )}
-    />
+    <Layout header nav>
+      <funnel.Render
+        step1={({ history }) => <Step1 onNext={(selectedId: number) => history.push('step2', { selectedId })} />}
+        step2={({ context, history }) => (
+          <Step2
+            selectedId={context.selectedId}
+            onNext={(selectedId) =>
+              history.push('step3', {
+                ...context,
+                selectedId,
+                pausedTime: 0,
+              })
+            }
+            onBack={() => history.back()}
+          />
+        )}
+        step3={({ context, history }) => (
+          <Step3
+            selectedId={context.selectedId}
+            pausedTime={context.pausedTime}
+            onNext={(selectedId: number, curTime: number) => history.push('step4', { selectedId, curTime })}
+          />
+        )}
+        step4={({ context, history }) => (
+          <Step4
+            selectedId={context.selectedId}
+            curTime={context.curTime}
+            onNext={() => history.push('step1')}
+            onBack={(pausedTime: number) => history.push('step3', { ...context, pausedTime })}
+          />
+        )}
+      />
+    </Layout>
   );
 }

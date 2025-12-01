@@ -31,7 +31,7 @@ export function Nav() {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 border-t border-border bg-card max-w-md mx-auto">
-      <div className="flex items-center justify-between gap-0">
+      <div className="flex items-center justify-center">
         {NAV_ITEMS.map((item) => {
           const Icon = item.icon;
           const isActive = currentPath === item.href;

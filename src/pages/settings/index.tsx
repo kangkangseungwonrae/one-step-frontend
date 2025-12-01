@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import { logout } from '@/api/services';
+import Layout from '@/components/layout';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { RadioGroupItem } from '@/components/ui/radio-group';
 
@@ -43,7 +44,7 @@ export default function Settings() {
   };
 
   return (
-    <>
+    <Layout header nav>
       <SettingsSection title={t('profile')} icon={UserRound}>
         <div className="flex gap-4 items-center">
           <Avatar className="h-10 w-10 hover:opacity-80 transition-opacity">
@@ -65,6 +66,6 @@ export default function Settings() {
       <button type="button" onClick={handleLogout}>
         <p className="text-md text-red-500">{t('logout')}</p>
       </button>
-    </>
+    </Layout>
   );
 }
