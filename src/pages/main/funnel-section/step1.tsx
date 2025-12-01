@@ -32,7 +32,7 @@ export default function Step1({ onNext }: Step1Props) {
                 <CarouselItem key={item.id}>
                   <div className="p-1">
                     <Card onClick={() => onNext(item.id)}>
-                      <CardContent className="flex aspect-square flex-col items-center justify-center gap-6 p-6">
+                      <CardContent className="flex aspect-square flex-col items-center justify-center gap-6">
                         <span className="font-semibold text-4xl">🍎</span>
                         <span
                           className="wrap-break-word whitespace-normal break-keep text-center font-semibold text-xl leading-snug"

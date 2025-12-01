@@ -1,0 +1,9 @@
+{
+  "profile": "Profile",
+  "language": "Language Settings",
+  "logout": "Logout",
+  "languages": {
+    "korean": "한국어",
+    "english": "English"
+  }
+}
