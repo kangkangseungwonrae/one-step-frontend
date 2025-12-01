@@ -1,4 +1,4 @@
-import { Home, UserRound } from 'lucide-react';
+import { Home, Settings } from 'lucide-react';
 import { Link, useLocation } from 'react-router';
 
 import type { ComponentType } from 'react';
@@ -18,10 +18,10 @@ const NAV_ITEMS: NavItem[] = [
     icon: Home,
   },
   {
-    id: 'profile',
-    label: 'PROFILE',
+    id: 'setting',
+    label: 'SETTING',
     href: '/settings',
-    icon: UserRound,
+    icon: Settings,
   },
 ];
 

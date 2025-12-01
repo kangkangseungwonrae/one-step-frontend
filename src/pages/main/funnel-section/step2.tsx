@@ -27,7 +27,7 @@ export default function Step2({ selectedId, onNext, onBack }: Step2Props) {
       <section className="w-full max-w-sm">
         <div className="p-1">
           <Card onClick={() => onNext(selectedId)}>
-            <CardContent className="flex aspect-square flex-col items-center justify-center gap-6 p-6">
+            <CardContent className="flex aspect-square flex-col items-center justify-center gap-6">
               <span className="font-semibold text-4xl">🍎</span>
               <span
                 className="wrap-break-word whitespace-normal break-keep text-center font-semibold text-xl leading-snug"
