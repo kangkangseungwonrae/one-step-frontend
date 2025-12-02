@@ -6,7 +6,7 @@ set -e
 # Configuration
 IMAGE_NAME="one-step-frontend"
 CONTAINER_NAME="one-step-frontend-container"
-PORT=3000
+PORT=5174
 
 echo "🚀 Starting production build and deployment..."
 
