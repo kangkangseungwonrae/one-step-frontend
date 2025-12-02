@@ -27,7 +27,7 @@ export interface Task {
 }
 
 export const logout = async (): Promise<AxiosResponse> => {
-  const response = await api.post('/auth');
+  const response = await api.post('/auth/logout');
   return response;
 };
 
