@@ -1,5 +1,8 @@
-import { useProfile } from '@/api/queries/useProfile';
+import { useEffect } from 'react';
+
+import { useGetProfile } from '@/api/profile/queries';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import i18n from '@/lib/i18n';
 
 interface HeaderProps {
   logoText?: string;
@@ -8,7 +11,13 @@ interface HeaderProps {
 }
 
 export function Header({ profileImage = '/user-profile-illustration.png', profileName = 'User' }: HeaderProps) {
-  const { data: profile, isLoading, error } = useProfile();
+  const { data: profile, isLoading, error } = useGetProfile();
+
+  useEffect(() => {
+    if (profile?.locale) {
+      i18n.changeLanguage(profile.locale);
+    }
+  }, [profile?.locale]);
 
   if (isLoading) {
     return <div>로딩중...</div>;

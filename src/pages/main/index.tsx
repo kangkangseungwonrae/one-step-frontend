@@ -25,12 +25,14 @@ export default function Main() {
   });
 
   const { data: tasks } = useGetTasks({
-    limit: 5,
-    categories: ['신체 활동', '정신 건강'],
-    keywords: ['생산성', '휴식'],
+    limit: 10,
+    categories: ['Mental Health'],
+    keywords: ['exercise'],
   });
 
-  console.log('tasks: ', tasks);
+  if (!tasks) return <div>Loading...</div>;
+
+  console.log('tasks: ', tasks?.length);
 
   // useEffect(() => {
   //   // 온보딩이 안되어 있으면 온보딩 페이지로 리다이렉트

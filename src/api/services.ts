@@ -1,30 +1,10 @@
 // api/profile.ts
 import { api } from '@/api/axios';
 
+import type { Profile, UpdateProfileDto } from './profile/dto';
 import type { TasksParams } from './queries/useGetTasks';
+import type { Task } from './task/dto';
 import type { AxiosResponse } from 'axios';
-
-export interface Profile {
-  categories: string[];
-  keywords: string[];
-  locale: 'ko' | 'en';
-  onboarding: boolean;
-}
-
-interface Keyword {
-  name: string;
-}
-
-interface Category {
-  name: string;
-}
-
-export interface Task {
-  descritpion: string;
-  duration: number;
-  keywords: Keyword[];
-  categories: Category[];
-}
 
 export const logout = async (): Promise<AxiosResponse> => {
   const response = await api.post('/auth/logout');
@@ -41,6 +21,11 @@ export const getProfile = async (): Promise<Profile> => {
   return data;
 };
 
+export const updateProfile = async (profile: UpdateProfileDto): Promise<Profile> => {
+  const { data } = await api.patch('/profile', profile);
+  return data;
+};
+
 export const getTasks = async ({ limit, categories, keywords }: TasksParams): Promise<Task[]> => {
   const query = [
     `limit=${limit}`,
@@ -48,6 +33,6 @@ export const getTasks = async ({ limit, categories, keywords }: TasksParams): Pr
     ...keywords.map((k) => `keywords=${encodeURIComponent(k)}`),
   ].join('&');
 
-  const { data } = await api.get(`/tasks?${query}`);
-  return data;
+  const { data } = await api.get(`task?${query}`);
+  return data.tasks;
 };

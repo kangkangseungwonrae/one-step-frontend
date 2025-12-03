@@ -12,6 +12,7 @@ export type Question = {
   multiple?: boolean;
 };
 
+// TODO: 없다 -> 다른거 비활성화
 export const ONBOARDING_QUESTIONS: Question[] = [
   {
     stepNumber: 0,
