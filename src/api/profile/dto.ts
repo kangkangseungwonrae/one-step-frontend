@@ -1,6 +1,6 @@
 export type Profile = {
   categories: string[];
-  image: 'string';
+  image: string;
   keywords: string[];
   locale: 'ko' | 'en';
   name: '정현';
