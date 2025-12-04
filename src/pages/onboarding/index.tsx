@@ -1,6 +1,7 @@
 import { useFunnel } from '@use-funnel/react-router';
 import { useNavigate } from 'react-router';
 
+import { usePatchProfile } from '@/api/profile/queries';
 import Layout from '@/components/layout';
 import FunnelSection from '@/pages/onboarding/funnel-section';
 
@@ -78,6 +79,7 @@ type FunnelSteps = Record<StepNames, { answers: Answers }>;
 
 export default function Onboarding() {
   const navigate = useNavigate();
+  const { mutate: updateProfile } = usePatchProfile();
   const funnel = useFunnel<FunnelSteps>({
     id: 'onboarding',
     initial: {
@@ -100,12 +102,11 @@ export default function Onboarding() {
 
     if (isLastStep) {
       console.log('Final answers:', newAnswers);
-      const message = ONBOARDING_QUESTIONS.map(
-        (q) => `${q.title}\n→ ${newAnswers[q.stepNumber]?.join(', ') ?? '없음'}`
-      ).join('\n\n');
-
-      if (window.confirm(`온보딩 완료!\n\n${message}\n\n메인 페이지로 이동할까요?`)) {
+      try {
+        updateProfile({ onboarding: true });
         navigate('/');
+      } catch (err) {
+        console.error('onboarding 업데이트 실패: ', err);
       }
     } else {
       funnel.history.push(`step${currentStepIndex + 1}`, () => ({

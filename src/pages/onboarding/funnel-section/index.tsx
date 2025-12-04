@@ -41,7 +41,7 @@ export default function FunnelSection({ question, previousAnswer = [], onNext, o
         </p>
         <div className="w-full bg-gray-200 rounded-full h-2">
           <div
-            className="bg-blue-500 h-2 rounded-full transition-all duration-300"
+            className="bg-primary h-2 rounded-full transition-all duration-300"
             style={{ width: `${(progress.current / progress.total) * 100}%` }}
           />
         </div>
@@ -59,9 +59,9 @@ export default function FunnelSection({ question, previousAnswer = [], onNext, o
             <button
               key={option}
               onClick={() => handleToggle(option)}
-              className={`w-full p-4 rounded-lg border-2 transition-all text-left ${
+              className={`bg-white w-full p-4 rounded-lg border-2 transition-all text-left ${
                 selected.includes(option)
-                  ? 'border-blue-500 bg-blue-50 font-medium'
+                  ? 'border-primary bg-blue-50 font-medium'
                   : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
               }`}
             >
@@ -84,7 +84,7 @@ export default function FunnelSection({ question, previousAnswer = [], onNext, o
         <button
           onClick={() => onNext(selected)}
           disabled={isDisabled}
-          className="flex-1 py-3 bg-blue-500 text-white rounded-lg disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-blue-600 transition-colors font-medium"
+          className="flex-1 py-3 bg-secondary text-white rounded-lg disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-secondary transition-colors font-medium"
         >
           {progress.current === progress.total ? '완료' : '다음'}
         </button>
