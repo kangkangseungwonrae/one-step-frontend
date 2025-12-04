@@ -1,14 +1,7 @@
-export type Keyword = {
-  name: string;
-};
-
-export type Category = {
-  name: string;
-};
-
 export type Task = {
-  descritpion: string;
+  description: string;
   duration: number;
-  keywords: Keyword[];
-  categories: Category[];
+  keywords: { name: string }[];
+  categories: { name: string }[];
+  icon: { name: string };
 };

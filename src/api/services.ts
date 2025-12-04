@@ -12,7 +12,7 @@ export const logout = async (): Promise<AxiosResponse> => {
 };
 
 export const getAuth = async (): Promise<{ authenticated: boolean }> => {
-  const { data } = await api.get('/auth/status');
+  const { data } = await api.get('/auth');
   return data;
 };
 
@@ -27,12 +27,12 @@ export const updateProfile = async (profile: UpdateProfileDto): Promise<Profile>
 };
 
 export const getTasks = async ({ limit, categories, keywords }: TasksParams): Promise<Task[]> => {
-  const query = [
-    `limit=${limit}`,
-    ...categories.map((c) => `categories=${encodeURIComponent(c)}`),
-    ...keywords.map((k) => `keywords=${encodeURIComponent(k)}`),
-  ].join('&');
+  const params = new URLSearchParams();
+  params.append('limit', limit.toString());
 
-  const { data } = await api.get(`task?${query}`);
+  categories?.forEach((c) => params.append('categories', c));
+  keywords?.forEach((k) => params.append('keywords', k));
+
+  const { data } = await api.get(`task?${params.toString()}`);
   return data.tasks;
 };

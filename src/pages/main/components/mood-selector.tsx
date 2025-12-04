@@ -1,46 +1,59 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 type MoodSelectorProps = {
-  onNext: (selectedMood: string) => void;
+  onNext: (selectedMood: string | null) => void;
 };
 
 export default function MoodSelector({ onNext }: MoodSelectorProps) {
+  const { t } = useTranslation();
   const [selectedMood, setSelectedMood] = useState<string>('');
 
-  const handleMoodSelect = () => {
-    if (selectedMood) {
-      if (window.confirm(`선택한 기분은 "${selectedMood}" 입니다. 다음으로 진행할까요?`)) {
-        onNext(selectedMood);
-      }
-    }
+  const handleConfirm = () => {
+    onNext(selectedMood);
+  };
+
+  const handleSkip = () => {
+    onNext(null);
   };
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Share</Button>
+        <Button variant="outline">{t('MoodSelector.done')}</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md bg-card">
         <div className="flex flex-col items-center gap-4 p-5">
-          <span>지금 기분은 어느 쪽에 가까운가요?</span>
+          <div className="flex flex-col items-center justify-center gap-1">
+            <span className="text-3xl">👏</span>
+            <span className="text-lg font-semibold">{t('MoodSelector.headerTitle')}</span>
+            <span className="text-xs text-neutral-500">{t('MoodSelector.headerSubTitle')}</span>
+          </div>
+
+          <span>{t('MoodSelector.title')}</span>
+
           <RadioGroup value={selectedMood} onValueChange={setSelectedMood} className="w-full flex flex-col gap-2">
-            <RadioGroupItem value="happy">😊 happy</RadioGroupItem>
-            <RadioGroupItem value="neutral">😐 neutral</RadioGroupItem>
-            <RadioGroupItem value="sad">😢 sad</RadioGroupItem>
+            <RadioGroupItem value="veryHard">😞 {t('MoodSelector.moods.veryHard')}</RadioGroupItem>
+            <RadioGroupItem value="hard">😔 {t('MoodSelector.moods.hard')}</RadioGroupItem>
+            <RadioGroupItem value="normal">😐 {t('MoodSelector.moods.normal')}</RadioGroupItem>
+            <RadioGroupItem value="better">🙂 {t('MoodSelector.moods.better')}</RadioGroupItem>
+            <RadioGroupItem value="good">😊 {t('MoodSelector.moods.good')}</RadioGroupItem>
           </RadioGroup>
         </div>
+
         <DialogFooter className="flex *:flex-1">
           <DialogClose asChild>
-            <Button type="button" variant="secondary">
-              Close
+            <Button type="button" variant="secondary" onClick={handleSkip}>
+              {t('MoodSelector.skip')}
             </Button>
           </DialogClose>
-          <Button type="button" onClick={handleMoodSelect}>
-            다음
+
+          <Button type="button" onClick={handleConfirm}>
+            {t('MoodSelector.next')}
           </Button>
         </DialogFooter>
       </DialogContent>

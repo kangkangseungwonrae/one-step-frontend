@@ -10,9 +10,10 @@ interface HeaderProps {
   profileName?: string;
 }
 
-export function Header({ profileImage = '/user-profile-illustration.png', profileName = 'User' }: HeaderProps) {
+export function Header({ profileName = 'User' }: HeaderProps) {
   const { data: profile, isLoading, error } = useGetProfile();
 
+  // ? 이걸 여기에 넣는게 맞는걸까
   useEffect(() => {
     if (profile?.locale) {
       i18n.changeLanguage(profile.locale);
@@ -34,8 +35,8 @@ export function Header({ profileImage = '/user-profile-illustration.png', profil
         <div className="font-bold text-lg text-foreground">{profile?.locale}</div>
 
         {/* Right: Profile Avatar */}
-        <Avatar className="h-10 w-10 cursor-pointer hover:opacity-80 transition-opacity">
-          <AvatarImage src={profileImage || '/placeholder.svg'} alt={profileName} />
+        <Avatar className="h-10 w-10 hover:opacity-80 transition-opacity">
+          <AvatarImage src={profile?.image} alt={profileName} />
           <AvatarFallback>{profileName.charAt(0).toUpperCase()}</AvatarFallback>
         </Avatar>
       </div>

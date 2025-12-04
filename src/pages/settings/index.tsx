@@ -7,6 +7,7 @@ import { useGetProfile, usePatchProfile } from '@/api/profile/queries';
 import { logout } from '@/api/services';
 import Layout from '@/components/layout';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { Card } from '@/components/ui/card';
 import { RadioGroupItem } from '@/components/ui/radio-group';
 
 import type { ElementType, ReactNode } from 'react';
@@ -14,13 +15,13 @@ import type { ElementType, ReactNode } from 'react';
 function SettingsSection({ title, icon, children }: { title: string; icon: ElementType; children: ReactNode }) {
   const Icon = icon;
   return (
-    <div className="flex flex-col gap-4 border p-4 rounded-md mb-4">
+    <Card className="flex flex-col gap-4 p-4 rounded-md mb-4">
       <div className="flex gap-2 items-center">
         <Icon className="w-4 h-4" />
         <p className="text-md font-semibold">{title}</p>
       </div>
       <div>{children}</div>
-    </div>
+    </Card>
   );
 }
 
@@ -59,7 +60,7 @@ export default function Settings() {
 
   return (
     <Layout header nav>
-      <SettingsSection title={t('settings.profile')} icon={UserRound}>
+      <SettingsSection title={t('Settings.profile')} icon={UserRound}>
         <div className="flex gap-4 items-center">
           <Avatar className="h-10 w-10 hover:opacity-80 transition-opacity">
             <AvatarImage src={image || '/placeholder.svg'} alt="profile" />
@@ -71,18 +72,18 @@ export default function Settings() {
           </div>
         </div>
       </SettingsSection>
-      <SettingsSection title={t('settings.language')} icon={Languages}>
+      <SettingsSection title={t('Settings.language')} icon={Languages}>
         <RadioGroup
           className="flex flex-col gap-2 *:py-2"
           defaultValue={profile?.locale}
           onValueChange={handleChangeLanguage}
         >
-          <RadioGroupItem value="ko">{t('settings.korean')}</RadioGroupItem>
-          <RadioGroupItem value="en">{t('settings.english')}</RadioGroupItem>
+          <RadioGroupItem value="ko">{t('Settings.korean')}</RadioGroupItem>
+          <RadioGroupItem value="en">{t('Settings.english')}</RadioGroupItem>
         </RadioGroup>
       </SettingsSection>
       <button type="button" onClick={handleLogout}>
-        <p className="text-md text-red-500">{t('settings.logout')}</p>
+        <p className="text-md text-red-500">{t('Settings.logout')}</p>
       </button>
     </Layout>
   );

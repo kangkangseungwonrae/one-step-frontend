@@ -1,9 +1,60 @@
 {
-  "settings": {
+  "MoodSelector": {
+    "confirmMessage": "You selected \"{{mood}}\". Continue?",
+    "done": "Done",
+    "headerSubTitle": "Hold on—just a few quick questions",
+    "headerTitle": "Great job!",
+    "moods": {
+      "better": "A Bit Better",
+      "good": "Good",
+      "hard": "Hard",
+      "normal": "Normal",
+      "veryHard": "Very Hard"
+    },
+    "next": "Next",
+    "skip": "Skip",
+    "title": "How are you feeling right now?"
+  },
+  "Settings": {
     "english": "English",
     "korean": "한국어",
     "language": "Language Settings",
     "logout": "Logout",
     "profile": "Profile"
+  },
+  "Step1": {
+    "subTitle": "choose one",
+    "swipe-task": "swipe and get new task",
+    "title": "do something",
+    "view-new-task": "view new task"
+  },
+  "Step2": {
+    "other-task": "choose other task",
+    "start": "start",
+    "subTitle": "if you ready, let's start",
+    "title": "you ready?"
+  },
+  "Step3": {
+    "done": "done",
+    "pause": "pause",
+    "progress": "progress",
+    "restart": "restart"
+  },
+  "Step4": {
+    "not-yet": "not yet",
+    "subTitle": "you done?",
+    "timeApprox": "about {{time}}",
+    "timePrefix": "You worked on this task",
+    "timeSuffix": "in total.",
+    "title": "you good"
+  },
+  "TaskCard": {
+    "tap": "tap it"
+  },
+  "common": {
+    "time": {
+      "minuteUnit": "min",
+      "secondUnit": "sec"
+    }
   }
 }

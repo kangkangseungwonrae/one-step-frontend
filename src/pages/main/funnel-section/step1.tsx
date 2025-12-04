@@ -1,17 +1,15 @@
-import { Badge } from '@/components/ui/badge';
+import { useTranslation } from 'react-i18next';
+
+import TaskCard from '../components/task-card';
+import { useGetProfile } from '@/api/profile/queries';
+import { useGetTasks } from '@/api/queries/useGetTasks';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { CAROUSEL_MOCK_DATA } from '@/mocks/data';
+
+import type { Task } from '@/api/task/dto';
 
 type Step1Props = {
-  onNext: (id: number) => void;
-};
-
-export const getGeneralTime = (time: 60 | 300 | 600) => {
-  if (time === 60) return '지금';
-  if (time === 300) return '5분';
-  if (time === 600) return '10분';
+  onNext: (task: Task) => void;
 };
 
 /**
@@ -19,45 +17,55 @@ export const getGeneralTime = (time: 60 | 300 | 600) => {
  * @param onNext 다음 단계로 이동하는 콜백 함수
  */
 export default function Step1({ onNext }: Step1Props) {
+  const { t } = useTranslation();
+  const { data: profile } = useGetProfile();
+  const {
+    data: tasks,
+    isLoading,
+    refetch,
+  } = useGetTasks(
+    {
+      limit: 10,
+      // categories: [''],
+      // keywords: [''],
+    },
+    profile?.locale
+  );
+
+  const handleRefreshTasks = () => {
+    refetch();
+  };
+
   return (
     <main className="flex h-full flex-col items-center justify-center gap-4">
-      <section>
-        <div>하이루^^ 오늘 뭐 해볼지 하나 정해봐.</div>
+      <section className="flex flex-col gap-2 w-full items-center justify-center">
+        <span className="text-2xl font-semibold">{t('Step1.title')}</span>
+        <span className="text-md">{t('Step1.subTitle')}</span>
       </section>
       <section>
-        <Carousel className="w-full max-w-sm">
-          <CarouselContent>
-            {CAROUSEL_MOCK_DATA.map((item) => {
-              return (
-                <CarouselItem key={item.id}>
-                  <div className="p-1">
-                    <Card onClick={() => onNext(item.id)}>
-                      <CardContent className="flex aspect-square flex-col items-center justify-center gap-6">
-                        <span className="font-semibold text-4xl">🍎</span>
-                        <span
-                          className="wrap-break-word whitespace-normal break-keep text-center font-semibold text-xl leading-snug"
-                          style={{ overflowWrap: 'anywhere' }}
-                        >
-                          {item.task}
-                        </span>
-                        <div className="flex gap-2">
-                          <Badge variant="default">{item.keyword}</Badge>
-                          <Badge variant="outline">{getGeneralTime(item.time)}</Badge>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </CarouselItem>
-              );
-            })}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
+        {isLoading || !tasks ? (
+          <div>loading...</div>
+        ) : (
+          <Carousel opts={{ loop: true }} className="w-full max-w-sm">
+            <CarouselContent>
+              {tasks.map((task) => {
+                return (
+                  <CarouselItem key={task.description}>
+                    <TaskCard task={task} onNext={(task) => onNext(task)} hover />
+                  </CarouselItem>
+                );
+              })}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
+        )}
       </section>
-      <div className="flex flex-col items-center gap-2">
-        <span className="font-semibold text-neutral-600 text-sm">좌우로 스와이프하여 다른 행동을 볼 수 있어요</span>
-        <Button variant="secondary">새로운 행동 보기</Button>
+      <div className="flex flex-col items-center gap-2 h-20">
+        <span className="font-semibold text-neutral-600 text-sm">{t('Step1.swipe-task')}</span>
+        <Button variant="default" onClick={handleRefreshTasks}>
+          {t('Step1.view-new-task')}
+        </Button>
       </div>
     </main>
   );

@@ -4,13 +4,13 @@ import { getTasks } from '@/api/services';
 
 export interface TasksParams {
   limit: number;
-  categories: string[];
-  keywords: string[];
+  categories?: string[];
+  keywords?: string[];
 }
 
-export const useGetTasks = (params: TasksParams) => {
+export const useGetTasks = (params: TasksParams, locale?: 'ko' | 'en') => {
   return useQuery({
-    queryKey: ['tasks', params],
+    queryKey: ['tasks', locale, params],
     queryFn: () => getTasks(params),
     staleTime: 1000 * 60 * 10, // 10분간 fresh
     gcTime: 1000 * 60 * 60, // 1시간 캐시
