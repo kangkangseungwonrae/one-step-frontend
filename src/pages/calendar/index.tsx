@@ -10,14 +10,17 @@ export default function CalendarPage() {
   const { t } = useTranslation();
   const [date, setDate] = useState<Date | undefined>(new Date());
 
+  const monthYearFormat = t('Calendar.monthYearFormat');
+  const dayRecordDateFormat = t('Calendar.dayRecordDateFormat');
+
   return (
-    <Layout header nav>
+    <Layout hasHeader hasNav>
       <main className="flex flex-col gap-4">
         <section className="flex flex-col justify-start">
-          <span className="text-2xl font-bold">{t('calendar.title')}</span>
+          <span className="text-2xl font-bold">{t('Calendar.title')}</span>
           <div className="flex items-center gap-2">
-            <span>{dayjs(date).format('YYYY년 MM월')}</span>
-            <span>{t('calendar.totalActions', { count: 0 })}</span>
+            <span>{dayjs(date).format(monthYearFormat)}</span>
+            <span>{t('Calendar.totalActions', { count: 0 })}</span>
           </div>
         </section>
         <section>
@@ -31,7 +34,11 @@ export default function CalendarPage() {
           <Card>
             <CardHeader>
               <CardTitle>
-                <span>{dayjs(date).format('MM월 DD일')}의 기록</span>
+                <span>
+                  {t('Calendar.dayRecordTitle', {
+                    date: dayjs(date).format(dayRecordDateFormat),
+                  })}
+                </span>
               </CardTitle>
             </CardHeader>
             <CardContent>

@@ -11,46 +11,53 @@
 }
 
 :root {
-  /* Updated to softer, warmer HERB palette with reduced saturation */
   --herb: #7fa85f;
   --gleam: #f0e4b0;
   --radiate: #d9935f;
   --moss: #4a5033;
   --pearl: #fffadd;
 
-  --background: var(--pearl);
-  --foreground: var(--moss);
-  --card: #ffffff;
-  --card-foreground: var(--moss);
-  --popover: #ffffff;
-  --popover-foreground: var(--moss);
-  --primary: var(--herb);
-  --primary-foreground: #ffffff;
-  --secondary: var(--radiate);
-  --secondary-foreground: #ffffff;
-  --muted: #f5f1eb;
-  --muted-foreground: #9a8f7f;
-  --accent: var(--gleam);
-  --accent-foreground: var(--moss);
-  --destructive: #dc2626;
-  --destructive-foreground: #ffffff;
-  --border: #e8ddd0;
-  --input: #f5f1eb;
-  --ring: var(--herb);
-  --chart-1: var(--herb);
-  --chart-2: var(--radiate);
-  --chart-3: var(--gleam);
-  --chart-4: #c9a876;
-  --chart-5: #7b9f3f;
-  --radius: 0.75rem;
-  --sidebar: var(--herb);
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: var(--gleam);
-  --sidebar-primary-foreground: var(--moss);
-  --sidebar-accent: var(--radiate);
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #6d7c5a;
-  --sidebar-ring: var(--herb);
+  --background: hsl(160 70% 95%);
+  /* light 모드: 전반적인 텍스트는 어두운 녹색 배경 위에서 잘 보이도록 밝은 계열 */
+  --foreground: #f9fafb;
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(160 30% 15%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(160 30% 15%);
+  --primary: hsl(18 100% 60%);
+  --primary-foreground: hsl(0 0% 100%);
+  --secondary: hsl(160 35% 85%);
+  --secondary-foreground: hsl(160 30% 20%);
+  --muted: hsl(160 30% 92%);
+  --muted-foreground: hsl(160 15% 45%);
+  --accent: hsl(160 40% 88%);
+  --accent-foreground: hsl(160 30% 20%);
+  --destructive: hsl(0 60% 65%);
+  --destructive-foreground: hsl(0 0% 100%);
+  --border: hsl(160 20% 85%);
+  --input: hsl(160 20% 90%);
+  --ring: hsl(18 100% 60%);
+
+  /* charts & extras */
+  --chart-1: hsl(160 45% 35%);
+  --chart-2: hsl(18 100% 60%);
+  --chart-3: hsl(160 35% 75%);
+  --chart-4: hsl(25 100% 65%);
+  --chart-5: hsl(160 40% 45%);
+
+  --radius: 1.5rem;
+
+  /* sidebar */
+  --sidebar: hsl(160 45% 35%);
+  --sidebar-foreground: hsl(0 0% 100%);
+  --sidebar-primary: hsl(18 100% 60%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(160 35% 75%);
+  --sidebar-accent-foreground: hsl(160 30% 15%);
+  --sidebar-border: hsl(160 20% 70%);
+  --sidebar-ring: hsl(18 100% 60%);
+
+  --gradient-main: linear-gradient(180deg, hsl(160 45% 35%) 0%, hsl(160 40% 45%) 100%);
 }
 
 .dark {
@@ -86,6 +93,7 @@
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: #6d7c5a;
   --sidebar-ring: var(--gleam);
+  --gradient-main: linear-gradient(180deg, hsl(160 40% 18%) 0%, hsl(160 35% 25%) 100%);
 }
 
 @theme inline {
@@ -128,6 +136,12 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+@layer utilities {
+  .bg-gradient-main {
+    background: var(--gradient-main);
+  }
+}
+
 @layer base {
   html,
   body,
@@ -140,6 +154,8 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased font-pretendard;
+    @apply text-foreground antialiased font-pretendard;
+    background-color: hsl(var(--color-background));
+    background-image: var(--gradient-main);
   }
 }

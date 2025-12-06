@@ -1,0 +1,27 @@
+<svg
+  width="40"
+  height="40"
+  viewBox="0 0 40 40"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <linearGradient id="avatarGradient" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4F46E5" />
+      <stop offset="1" stop-color="#06B6D4" />
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="9999" fill="url(#avatarGradient)" />
+  <path
+    d="M20 20C22.7614 20 25 17.7614 25 15C25 12.2386 22.7614 10 20 10C17.2386 10 15 12.2386 15 15C15 17.7614 17.2386 20 20 20Z"
+    fill="white"
+    fill-opacity="0.9"
+  />
+  <path
+    d="M12 27.5C12 24.4624 14.4624 22 17.5 22H22.5C25.5376 22 28 24.4624 28 27.5C28 28.3284 27.3284 29 26.5 29H13.5C12.6716 29 12 28.3284 12 27.5Z"
+    fill="white"
+    fill-opacity="0.9"
+  />
+</svg>
+
+

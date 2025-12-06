@@ -27,7 +27,7 @@ export default function Step2({ selectedTask, onNext, onBack }: Step2Props) {
       </section>
 
       <section className="flex w-full max-w-sm flex-col gap-2">
-        <Button variant="secondary" onClick={() => onNext(selectedTask)}>
+        <Button variant="default" onClick={() => onNext(selectedTask)}>
           {t('Step2.start')}
         </Button>
         <Button variant="outline" onClick={onBack}>

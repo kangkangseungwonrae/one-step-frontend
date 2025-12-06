@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { getGeneralTime } from '@/lib/utils';
 import { cn } from '@/lib/utils';
@@ -23,7 +22,7 @@ export default function TaskCard({ task, onNext, hover = false }: TaskCardProps)
       onClick={() => onNext && onNext(task)}
       className={cn(
         'relative transition-colors',
-        hover && 'hover:border-2 hover:border-secondary hover:bg-card/80 group cursor-pointer'
+        hover && 'hover:border-2 hover:border-primary hover:bg-card/80 group cursor-pointer'
       )}
     >
       <CardContent className="flex aspect-square flex-col items-center justify-center gap-6">
@@ -31,7 +30,7 @@ export default function TaskCard({ task, onNext, hover = false }: TaskCardProps)
         <span
           className={cn(
             'wrap-break-word whitespace-normal break-keep text-center font-semibold text-xl leading-snug transition-colors',
-            hover && 'group-hover:text-secondary'
+            hover && 'group-hover:text-primary'
           )}
           style={{ overflowWrap: 'anywhere' }}
         >
@@ -41,19 +40,16 @@ export default function TaskCard({ task, onNext, hover = false }: TaskCardProps)
           {keywords.map((keyword) => {
             return (
               <Badge key={keyword.name} variant="outline">
-                {keyword.name}
+                <span className="text-card-foreground">{keyword.name}</span>
               </Badge>
             );
           })}
           <Badge variant="default">{getGeneralTime(t, duration)}</Badge>
         </div>
         {hover && (
-          <Button
-            variant="secondary"
-            className="cursor-pointer absolute left-1/2 -translate-x-1/2 bottom-6 opacity-0 group-hover:opacity-100 transition-opacity"
-          >
+          <div className="cursor-pointer h-10 bg-secondary w-fit px-4 text-secondary-foreground rounded-lg flex items-center justify-center absolute left-1/2 -translate-x-1/2 bottom-6 opacity-0 group-hover:opacity-100 transition-opacity">
             {t('TaskCard.tap')}
-          </Button>
+          </div>
         )}
       </CardContent>
     </Card>

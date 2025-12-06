@@ -11,7 +11,10 @@ interface HeaderProps {
 }
 
 export function Header({ profileName = 'User' }: HeaderProps) {
-  const { data: profile, isLoading, error } = useGetProfile();
+  const { data: profile } = useGetProfile();
+
+  const displayName = (profile?.name && profile.name.trim()) || (profileName && profileName.trim()) || 'User';
+  const fallbackInitial = displayName.charAt(0).toUpperCase();
 
   // ? 이걸 여기에 넣는게 맞는걸까
   useEffect(() => {
@@ -20,24 +23,13 @@ export function Header({ profileName = 'User' }: HeaderProps) {
     }
   }, [profile?.locale]);
 
-  if (isLoading) {
-    return <div>로딩중...</div>;
-  }
-
-  if (error) {
-    return <div>에러 발생: {error.message}</div>;
-  }
-
   return (
-    <header className="bg-background border-b border-border sticky top-0 z-50">
+    <header className="border-b border-border sticky top-0 z-50">
       <div className="max-w-[640px] mx-auto px-4 py-4 flex items-center justify-between">
-        {/* Left: Logo */}
-        <div className="font-bold text-lg text-foreground">{profile?.locale}</div>
-
-        {/* Right: Profile Avatar */}
+        <div className="font-black text-lg text-foreground">One Step</div>
         <Avatar className="h-10 w-10 hover:opacity-80 transition-opacity">
-          <AvatarImage src={profile?.image} alt={profileName} />
-          <AvatarFallback>{profileName.charAt(0).toUpperCase()}</AvatarFallback>
+          <AvatarImage src={profile?.image || '/default-avatar.svg'} alt={displayName} />
+          <AvatarFallback>{fallbackInitial}</AvatarFallback>
         </Avatar>
       </div>
     </header>

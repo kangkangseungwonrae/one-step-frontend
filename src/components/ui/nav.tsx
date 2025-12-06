@@ -16,7 +16,7 @@ function NavItemComp({ label, href, icon, curPath }: NavItem & { curPath: string
     <Link
       to={href}
       className={`flex flex-col items-center justify-center gap-1 px-6 py-4 transition-colors ${
-        isActive ? 'border-b-2 border-primary text-primary' : 'text-muted-foreground hover:text-foreground'
+        isActive ? 'border-b-2 border-primary text-primary' : 'text-muted-foreground hover:text-primary'
       }`}
     >
       <Icon className="h-5 w-5" />

@@ -1,12 +1,13 @@
+import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router';
 
-import CalendarPage from '@/pages/calendar';
-import LoginPage from '@/pages/login';
-import MainPage from '@/pages/main';
-import OnboardingPage from '@/pages/onboarding';
-import SettingsPage from '@/pages/settings';
-import ProtectedRoute from '@/routes/protected-routes';
-import PublicRoutes from '@/routes/public-routes';
+const CalendarPage = lazy(() => import('@/pages/calendar'));
+const LoginPage = lazy(() => import('@/pages/login'));
+const MainPage = lazy(() => import('@/pages/main'));
+const OnboardingPage = lazy(() => import('@/pages/onboarding'));
+const SettingsPage = lazy(() => import('@/pages/settings'));
+const ProtectedRoute = lazy(() => import('@/routes/protected-routes'));
+const PublicRoutes = lazy(() => import('@/routes/public-routes'));
 
 export const router = createBrowserRouter([
   {
