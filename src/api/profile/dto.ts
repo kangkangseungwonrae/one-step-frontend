@@ -3,7 +3,7 @@ export type Profile = {
   image: string;
   keywords: string[];
   locale: 'ko' | 'en';
-  name: '정현';
+  name: string;
   onboarding: boolean;
 };
 
