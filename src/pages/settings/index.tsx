@@ -1,6 +1,7 @@
 import { RadioGroup } from '@radix-ui/react-radio-group';
 import { useQueryClient } from '@tanstack/react-query';
-import { UserRound, Languages } from 'lucide-react';
+import { UserRound, Languages, Pencil } from 'lucide-react';
+import { useState, type ElementType, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
@@ -8,11 +9,12 @@ import { useGetProfile, usePatchProfile } from '@/api/profile/queries';
 import { logout } from '@/api/services';
 import Layout from '@/components/layout';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import { RadioGroupItem } from '@/components/ui/radio-group';
 
 import type { Profile } from '@/api/profile/dto';
-import type { ElementType, ReactNode } from 'react';
 
 function SettingsSection({ title, icon, children }: { title: string; icon: ElementType; children: ReactNode }) {
   const Icon = icon;
@@ -35,6 +37,11 @@ export default function SettingsPage() {
   const { data } = useGetProfile();
   const profile = data as Profile;
   const { mutate: patchProfile } = usePatchProfile();
+
+  const [currentName, setCurrentName] = useState<string>(profile.name);
+  const [userName, setUserName] = useState<string>(profile.name);
+  const [isEditingName, setIsEditingName] = useState<boolean>(false);
+  const [nameError, setNameError] = useState<string | null>(null);
 
   const handleLogout = async () => {
     try {
@@ -66,18 +73,81 @@ export default function SettingsPage() {
 
   const { name, image } = profile;
 
+  const handleEnterEditName = () => {
+    setUserName(currentName);
+    setIsEditingName(true);
+    setNameError(null);
+  };
+
+  const handleCancelEditName = () => {
+    setUserName(currentName);
+    setIsEditingName(false);
+    setNameError(null);
+  };
+
+  const handleSaveName = () => {
+    const trimmed = userName.trim();
+
+    if (!trimmed) {
+      setNameError('닉네임은 빈 값일 수 없습니다.');
+      return;
+    }
+
+    patchProfile(
+      { name: trimmed },
+      {
+        onSuccess: () => {
+          setCurrentName(trimmed);
+          setIsEditingName(false);
+          setNameError(null);
+        },
+        onError: () => {
+          setNameError('닉네임 저장에 실패했습니다. 잠시 후 다시 시도해주세요.');
+        },
+      }
+    );
+  };
+
   return (
     <Layout hasHeader hasNav>
       <SettingsSection title={t('Settings.profile')} icon={UserRound}>
-        <div className="flex gap-4 items-center">
-          <Avatar className="h-10 w-10 hover:opacity-80 transition-opacity">
-            <AvatarImage src={image || '/placeholder.svg'} alt="profile" />
-            <AvatarFallback>{name.charAt(0).toUpperCase()}</AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col">
-            <p className="">{name}</p>
-            <p className="text-sm text-neutral-600">email</p>
+        <div className="flex flex-col gap-2">
+          <div className="flex gap-4 items-center">
+            <Avatar className="h-10 w-10 hover:opacity-80 transition-opacity">
+              <AvatarImage src={image || '/placeholder.svg'} alt="profile" />
+              <AvatarFallback>{name?.charAt(0).toUpperCase()}</AvatarFallback>
+            </Avatar>
+            <div className="flex-1 flex flex-col gap-1">
+              <div className="relative w-full">
+                <Input
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                  className="w-full pr-9"
+                  readOnly={!isEditingName}
+                />
+                {!isEditingName && (
+                  <button
+                    type="button"
+                    onClick={handleEnterEditName}
+                    className="absolute inset-y-0 right-2 flex items-center text-card-foreground hover:text-primary"
+                  >
+                    <Pencil className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
+              {nameError && <p className="text-xs text-destructive">{nameError}</p>}
+            </div>
           </div>
+          {isEditingName && (
+            <div className="mt-1 flex justify-end gap-2">
+              <Button type="button" variant="outline" size="sm" onClick={handleCancelEditName}>
+                취소
+              </Button>
+              <Button type="button" size="sm" onClick={handleSaveName}>
+                저장
+              </Button>
+            </div>
+          )}
         </div>
       </SettingsSection>
       <SettingsSection title={t('Settings.language')} icon={Languages}>
