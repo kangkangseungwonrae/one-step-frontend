@@ -169,7 +169,7 @@ function CarouselPrevious({
       variant={variant}
       size={size}
       className={cn(
-        'absolute size-8 rounded-full',
+        'absolute size-8 rounded-full text-card-foreground',
         orientation === 'horizontal'
           ? 'left-4 -translate-y-1/2 top-1/2'
           : '-top-12 -translate-x-1/2 left-1/2 rotate-90',
@@ -199,7 +199,7 @@ function CarouselNext({
       variant={variant}
       size={size}
       className={cn(
-        'absolute size-8 rounded-full',
+        'absolute size-8 rounded-full text-card-foreground',
         orientation === 'horizontal'
           ? 'right-4 -translate-y-1/2 top-1/2'
           : '-bottom-12 -translate-x-1/2 left-1/2 rotate-90',

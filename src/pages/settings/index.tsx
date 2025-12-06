@@ -47,6 +47,14 @@ export default function SettingsPage() {
     }
   };
 
+  const handleOnboarding = () => {
+    try {
+      patchProfile({ onboarding: false });
+    } catch (error) {
+      console.error('Onboarding failed:', error);
+    }
+  };
+
   const handleChangeLanguage = (lang: 'ko' | 'en') => {
     try {
       patchProfile({ locale: lang });
@@ -59,7 +67,7 @@ export default function SettingsPage() {
   const { name, image } = profile;
 
   return (
-    <Layout header nav>
+    <Layout hasHeader hasNav>
       <SettingsSection title={t('Settings.profile')} icon={UserRound}>
         <div className="flex gap-4 items-center">
           <Avatar className="h-10 w-10 hover:opacity-80 transition-opacity">
@@ -82,9 +90,16 @@ export default function SettingsPage() {
           <RadioGroupItem value="en">{t('Settings.english')}</RadioGroupItem>
         </RadioGroup>
       </SettingsSection>
-      <button type="button" onClick={handleLogout}>
-        <p className="text-md text-red-500">{t('Settings.logout')}</p>
-      </button>
+      <div className="flex flex-col gap-2 *:text-start">
+        <button type="button" onClick={handleLogout}>
+          <p className="text-md">{t('Settings.logout')}</p>
+        </button>
+        <button type="button" onClick={handleOnboarding} className="cursor-pointer hover:underline">
+          <p className="text-md text-start">온보딩 다시 시작하려면 여기 누르고 로그아웃 후 재로그인</p>
+          <p className="text-md">나중에 삭제할 예정</p>
+          <p className="text-md">onboarding: {profile.onboarding ? 'true' : 'false'}</p>
+        </button>
+      </div>
     </Layout>
   );
 }

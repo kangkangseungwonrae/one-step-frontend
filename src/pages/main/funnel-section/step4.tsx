@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import MoodSelector from '../components/mood-selector';
+import MoodDialog from '../components/mood-dialog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -49,7 +49,7 @@ export default function Step4({ selectedTask, curTime, onNext, onBack }: Step4Pr
             <div className="flex gap-2">
               {keywords.map((keyword) => (
                 <Badge key={keyword.name} variant="outline">
-                  {keyword.name}
+                  <span className="text-card-foreground  ">{keyword.name}</span>
                 </Badge>
               ))}
             </div>
@@ -73,7 +73,7 @@ export default function Step4({ selectedTask, curTime, onNext, onBack }: Step4Pr
         <Button variant="secondary" onClick={() => onBack(curTime)}>
           {t('Step4.not-yet')}
         </Button>
-        <MoodSelector onNext={onNext} />
+        <MoodDialog onNext={onNext} />
       </div>
     </main>
   );

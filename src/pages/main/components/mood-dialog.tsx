@@ -5,11 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
-type MoodSelectorProps = {
+type MoodDialogProps = {
   onNext: (selectedMood: string | null) => void;
 };
 
-export default function MoodSelector({ onNext }: MoodSelectorProps) {
+export default function MoodDialog({ onNext }: MoodDialogProps) {
   const { t } = useTranslation();
   const [selectedMood, setSelectedMood] = useState<string>('');
 
@@ -24,36 +24,36 @@ export default function MoodSelector({ onNext }: MoodSelectorProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">{t('MoodSelector.done')}</Button>
+        <Button variant="outline">{t('MoodDialog.done')}</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md bg-card">
+      <DialogContent className="sm:max-w-md bg-card text-card-foreground">
         <div className="flex flex-col items-center gap-4 p-5">
           <div className="flex flex-col items-center justify-center gap-1">
             <span className="text-3xl">👏</span>
-            <span className="text-lg font-semibold">{t('MoodSelector.headerTitle')}</span>
-            <span className="text-xs text-neutral-500">{t('MoodSelector.headerSubTitle')}</span>
+            <span className="text-lg font-semibold">{t('MoodDialog.headerTitle')}</span>
+            <span className="text-xs text-neutral-500">{t('MoodDialog.headerSubTitle')}</span>
           </div>
 
-          <span>{t('MoodSelector.title')}</span>
+          <span>{t('MoodDialog.title')}</span>
 
           <RadioGroup value={selectedMood} onValueChange={setSelectedMood} className="w-full flex flex-col gap-2">
-            <RadioGroupItem value="veryHard">😞 {t('MoodSelector.moods.veryHard')}</RadioGroupItem>
-            <RadioGroupItem value="hard">😔 {t('MoodSelector.moods.hard')}</RadioGroupItem>
-            <RadioGroupItem value="normal">😐 {t('MoodSelector.moods.normal')}</RadioGroupItem>
-            <RadioGroupItem value="better">🙂 {t('MoodSelector.moods.better')}</RadioGroupItem>
-            <RadioGroupItem value="good">😊 {t('MoodSelector.moods.good')}</RadioGroupItem>
+            <RadioGroupItem value="veryHard">😞 {t('MoodDialog.moods.veryHard')}</RadioGroupItem>
+            <RadioGroupItem value="hard">😔 {t('MoodDialog.moods.hard')}</RadioGroupItem>
+            <RadioGroupItem value="normal">😐 {t('MoodDialog.moods.normal')}</RadioGroupItem>
+            <RadioGroupItem value="better">🙂 {t('MoodDialog.moods.better')}</RadioGroupItem>
+            <RadioGroupItem value="good">😊 {t('MoodDialog.moods.good')}</RadioGroupItem>
           </RadioGroup>
         </div>
 
         <DialogFooter className="flex *:flex-1">
           <DialogClose asChild>
             <Button type="button" variant="secondary" onClick={handleSkip}>
-              {t('MoodSelector.skip')}
+              {t('MoodDialog.skip')}
             </Button>
           </DialogClose>
 
           <Button type="button" onClick={handleConfirm}>
-            {t('MoodSelector.next')}
+            {t('MoodDialog.next')}
           </Button>
         </DialogFooter>
       </DialogContent>

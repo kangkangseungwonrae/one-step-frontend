@@ -1,5 +1,5 @@
 {
-  "MoodSelector": {
+  "MoodDialog": {
     "confirmMessage": "You selected \"{{mood}}\". Continue?",
     "done": "Done",
     "headerSubTitle": "Hold on—just a few quick questions",
@@ -50,6 +50,101 @@
   },
   "TaskCard": {
     "tap": "tap it"
+  },
+  "Onboarding": {
+    "common": {
+      "multiple": "You can select multiple options",
+      "prev": "Previous",
+      "next": "Next",
+      "done": "Done",
+      "none": "None",
+      "noneAnswer": "None"
+    },
+    "complete": {
+      "title": "Onboarding complete!",
+      "goToMain": "Go to the main page?"
+    },
+    "q0": {
+      "title": "Do you have any pets?",
+      "options": {
+        "cat": "Cat",
+        "dog": "Dog",
+        "etc": "Other"
+      }
+    },
+    "q1": {
+      "title": "Have you enjoyed any exercise in the past?",
+      "options": {
+        "yoga": "Yoga",
+        "bike": "Cycling",
+        "stretch": "Stretching",
+        "running": "Running",
+        "gym": "Gym"
+      }
+    },
+    "q2": {
+      "title": "Do you keep any plants at home?",
+      "options": {
+        "yes": "Yes"
+      }
+    },
+    "q3": {
+      "title": "When things are hard, what has helped you even a little?",
+      "options": {
+        "walk": "Walk",
+        "cook": "Cooking",
+        "lightExercise": "Light exercise",
+        "warmShower": "Taking a warm shower",
+        "music": "Listening to upbeat music"
+      }
+    },
+    "q4": {
+      "title": "What kind of music do you listen to often?",
+      "options": {
+        "pop": "Pop",
+        "indie": "Indie",
+        "hiphop": "Hip-hop",
+        "ballad": "Ballad",
+        "classic": "Classical",
+        "lofi": "Lo-fi"
+      }
+    },
+    "q5": {
+      "title": "What do you usually do during breaks?",
+      "options": {
+        "music": "Music",
+        "video": "Video",
+        "lieDown": "Lie down",
+        "walk": "Walk",
+        "read": "Read"
+      }
+    },
+    "q6": {
+      "title": "Where do you often go near your home?",
+      "options": {
+        "convenienceStore": "Convenience store",
+        "cafe": "Cafe",
+        "park": "Park",
+        "mart": "Supermarket"
+      }
+    },
+    "q7": {
+      "title": "Where do you spend most of your time at home?",
+      "options": {
+        "bed": "Bed",
+        "desk": "Desk",
+        "sofa": "Sofa",
+        "kitchen": "Kitchen",
+        "etc": "Other"
+      }
+    }
+  },
+  "Calendar": {
+    "title": "Calendar",
+    "totalActions": "Total {{count}} actions",
+    "dayRecordTitle": "Records for {{date}}",
+    "monthYearFormat": "MMMM YYYY",
+    "dayRecordDateFormat": "MMM DD"
   },
   "common": {
     "time": {

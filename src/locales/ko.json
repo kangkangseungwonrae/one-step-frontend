@@ -1,8 +1,7 @@
 {
-  "MoodSelector": {
+  "MoodDialog": {
     "confirmMessage": "선택한 기분은 \"{{mood}}\" 입니다. 다음으로 진행할까요?",
     "done": "완료했어요",
-
     "headerSubTitle": "잠깐만요, 몇 가지만 물어볼게요",
     "headerTitle": "고생했어요",
     "moods": {
@@ -51,6 +50,101 @@
   },
   "TaskCard": {
     "tap": "탭하여 선택하기"
+  },
+  "Onboarding": {
+    "common": {
+      "multiple": "중복 선택 가능",
+      "prev": "이전",
+      "next": "다음",
+      "done": "완료",
+      "none": "없음",
+      "noneAnswer": "없음"
+    },
+    "complete": {
+      "title": "온보딩 완료!",
+      "goToMain": "메인 페이지로 이동할까요?"
+    },
+    "q0": {
+      "title": "반려동물이 있나요?",
+      "options": {
+        "cat": "고양이",
+        "dog": "강아지",
+        "etc": "기타"
+      }
+    },
+    "q1": {
+      "title": "예전에 좋아했던 운동이 있나요?",
+      "options": {
+        "yoga": "요가",
+        "bike": "자전거",
+        "stretch": "스트레칭",
+        "running": "러닝",
+        "gym": "헬스"
+      }
+    },
+    "q2": {
+      "title": "집에서 식물을 키우고 있나요?",
+      "options": {
+        "yes": "있다"
+      }
+    },
+    "q3": {
+      "title": "힘들 때, 그나마 도움이 되었던 행동이 있다면 무엇인가요?",
+      "options": {
+        "walk": "산책",
+        "cook": "요리",
+        "lightExercise": "간단한 운동",
+        "warmShower": "따뜻한 물로 샤워하기",
+        "music": "신나는 음악 듣기"
+      }
+    },
+    "q4": {
+      "title": "자주 듣는 음악 장르는?",
+      "options": {
+        "pop": "팝",
+        "indie": "인디",
+        "hiphop": "힙합",
+        "ballad": "발라드",
+        "classic": "클래식",
+        "lofi": "로파이"
+      }
+    },
+    "q5": {
+      "title": "쉬는 시간에 가장 자주 하는 건?",
+      "options": {
+        "music": "음악",
+        "video": "영상",
+        "lieDown": "누워있기",
+        "walk": "산책",
+        "read": "독서"
+      }
+    },
+    "q6": {
+      "title": "집 근처에서 자주 가는 곳이 있나요?",
+      "options": {
+        "convenienceStore": "편의점",
+        "cafe": "카페",
+        "park": "공원",
+        "mart": "마트"
+      }
+    },
+    "q7": {
+      "title": "집에서 제일 오래 있는 공간은?",
+      "options": {
+        "bed": "침대",
+        "desk": "책상",
+        "sofa": "소파",
+        "kitchen": "주방",
+        "etc": "기타"
+      }
+    }
+  },
+  "Calendar": {
+    "title": "캘린더",
+    "totalActions": "총 {{count}}개 행동",
+    "dayRecordTitle": "{{date}}의 기록",
+    "monthYearFormat": "YYYY년 MM월",
+    "dayRecordDateFormat": "MM월 DD일"
   },
   "common": {
     "time": {

@@ -1,5 +1,8 @@
 import { useFunnel } from '@use-funnel/react-router';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
+import { useGetProfile } from '@/api/profile/queries';
 import Layout from '@/components/layout';
 
 import Step1 from './funnel-section/step1';
@@ -17,6 +20,9 @@ type FunnelSteps = {
 };
 
 export default function MainPage() {
+  const navigate = useNavigate();
+
+  const { data: profile } = useGetProfile();
   const funnel = useFunnel<FunnelSteps>({
     id: 'main',
     initial: {
@@ -25,8 +31,14 @@ export default function MainPage() {
     },
   });
 
+  useEffect(() => {
+    if (profile && !profile.onboarding) {
+      navigate('/onboarding');
+    }
+  }, [profile, navigate]);
+
   return (
-    <Layout header nav>
+    <Layout hasHeader hasNav>
       <funnel.Render
         step1={({ history }) => <Step1 onNext={(selectedTask: Task) => history.push('step2', { selectedTask })} />}
         step2={({ context, history }) => (

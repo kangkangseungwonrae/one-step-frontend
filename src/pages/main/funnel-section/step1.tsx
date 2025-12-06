@@ -62,7 +62,7 @@ export default function Step1({ onNext }: Step1Props) {
         )}
       </section>
       <div className="flex flex-col items-center gap-2 h-20">
-        <span className="font-semibold text-neutral-600 text-sm">{t('Step1.swipe-task')}</span>
+        <span className="font-semibold text-sm">{t('Step1.swipe-task')}</span>
         <Button variant="default" onClick={handleRefreshTasks}>
           {t('Step1.view-new-task')}
         </Button>
