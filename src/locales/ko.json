@@ -1,0 +1,61 @@
+{
+  "MoodSelector": {
+    "confirmMessage": "선택한 기분은 \"{{mood}}\" 입니다. 다음으로 진행할까요?",
+    "done": "완료했어요",
+
+    "headerSubTitle": "잠깐만요, 몇 가지만 물어볼게요",
+    "headerTitle": "고생했어요",
+    "moods": {
+      "better": "조금 나아졌다",
+      "good": "괜찮다",
+      "hard": "힘들다",
+      "normal": "보통",
+      "veryHard": "매우 힘들다"
+    },
+    "next": "다음",
+    "skip": "건너뛰기",
+    "title": "지금 기분은 어느 쪽에 가까운가요?"
+  },
+  "Settings": {
+    "english": "English",
+    "korean": "한국어",
+    "language": "언어 설정",
+    "logout": "로그아웃",
+    "profile": "프로필"
+  },
+  "Step1": {
+    "subTitle": "괜찮다면, 지금은 이 중 한 가지만 같이 해볼래요?",
+    "swipe-task": "좌우로 스와이프하여 다른 행동을 볼 수 있어요",
+    "title": "오늘도 여기까지 온 것만 해도 충분해요.",
+    "view-new-task": "새로운 행동 보기"
+  },
+  "Step2": {
+    "other-task": "다른 행동 선택",
+    "start": "시작하기",
+    "subTitle": "준비가 되면 시작하기를 눌러주세요",
+    "title": "시작해볼까요?"
+  },
+  "Step3": {
+    "done": "종료하기",
+    "pause": "일시정지",
+    "progress": "진행중",
+    "restart": "다시 시작하기"
+  },
+  "Step4": {
+    "not-yet": "아직 안 끝남",
+    "subTitle": "완료한 것으로 기록할까요?",
+    "timeApprox": "약 {{time}}",
+    "timePrefix": "이번 행동을",
+    "timeSuffix": "동안 해냈어요.",
+    "title": "잘하셨어요"
+  },
+  "TaskCard": {
+    "tap": "탭하여 선택하기"
+  },
+  "common": {
+    "time": {
+      "minuteUnit": "분",
+      "secondUnit": "초"
+    }
+  }
+}

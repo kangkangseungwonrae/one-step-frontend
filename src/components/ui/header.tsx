@@ -1,5 +1,8 @@
-import { useProfile } from '@/api/queries/useProfile';
+import { useEffect } from 'react';
+
+import { useGetProfile } from '@/api/profile/queries';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import i18n from '@/lib/i18n';
 
 interface HeaderProps {
   logoText?: string;
@@ -7,8 +10,15 @@ interface HeaderProps {
   profileName?: string;
 }
 
-export function Header({ profileImage = '/user-profile-illustration.png', profileName = 'User' }: HeaderProps) {
-  const { data: profile, isLoading, error } = useProfile();
+export function Header({ profileName = 'User' }: HeaderProps) {
+  const { data: profile, isLoading, error } = useGetProfile();
+
+  // ? 이걸 여기에 넣는게 맞는걸까
+  useEffect(() => {
+    if (profile?.locale) {
+      i18n.changeLanguage(profile.locale);
+    }
+  }, [profile?.locale]);
 
   if (isLoading) {
     return <div>로딩중...</div>;
@@ -25,8 +35,8 @@ export function Header({ profileImage = '/user-profile-illustration.png', profil
         <div className="font-bold text-lg text-foreground">{profile?.locale}</div>
 
         {/* Right: Profile Avatar */}
-        <Avatar className="h-10 w-10 cursor-pointer hover:opacity-80 transition-opacity">
-          <AvatarImage src={profileImage || '/placeholder.svg'} alt={profileName} />
+        <Avatar className="h-10 w-10 hover:opacity-80 transition-opacity">
+          <AvatarImage src={profile?.image} alt={profileName} />
           <AvatarFallback>{profileName.charAt(0).toUpperCase()}</AvatarFallback>
         </Avatar>
       </div>

@@ -1,29 +1,25 @@
 import { createBrowserRouter } from 'react-router';
 
-import Layout from '@/components/layout';
-import Login from '@/pages/login';
-import Main from '@/pages/main';
-import Onboarding from '@/pages/onboarding';
-import Settings from '@/pages/settings';
+import CalendarPage from '@/pages/calendar';
+import LoginPage from '@/pages/login';
+import MainPage from '@/pages/main';
+import OnboardingPage from '@/pages/onboarding';
+import SettingsPage from '@/pages/settings';
 import ProtectedRoute from '@/routes/protected-routes';
 import PublicRoutes from '@/routes/public-routes';
 
 export const router = createBrowserRouter([
   {
     element: <PublicRoutes />,
-    children: [{ path: '/login', Component: Login }],
+    children: [{ path: '/login', Component: LoginPage }],
   },
   {
-    element: <Layout />,
+    element: <ProtectedRoute />,
     children: [
-      {
-        element: <ProtectedRoute />,
-        children: [
-          { path: '/', Component: Main },
-          { path: '/onboarding', Component: Onboarding },
-          { path: '/settings', Component: Settings },
-        ],
-      },
+      { path: '/', Component: MainPage },
+      { path: '/onboarding', Component: OnboardingPage },
+      { path: '/calendar', Component: CalendarPage },
+      { path: '/settings', Component: SettingsPage },
     ],
   },
 ]);

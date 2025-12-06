@@ -1,12 +1,12 @@
 import { Navigate, Outlet } from 'react-router';
 
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/api/queries/useAuth';
 
 export default function PublicRoutes() {
-  const { isAuthenticated } = useAuth();
+  const { data: isAuthenticated, isError } = useAuth();
 
-  if (isAuthenticated) {
-    return <Navigate to="/" replace />;
+  if (isError || isAuthenticated) {
+    return <Navigate to="/login" replace />;
   }
 
   return <Outlet />;

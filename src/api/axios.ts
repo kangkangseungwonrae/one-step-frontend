@@ -1,5 +1,7 @@
 import axios, { type AxiosRequestConfig, type InternalAxiosRequestConfig } from 'axios';
 
+import { logout } from './services';
+
 // 커스텀 config 인터페이스
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   _skipInterceptor?: boolean;
@@ -13,7 +15,7 @@ export const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true, // 쿠키 자동 전송
+  withCredentials: true, // 쿠키 자동 전송,
 });
 
 // refresh token 관련 상태 관리
@@ -37,7 +39,7 @@ const processQueue = (error: unknown = null) => {
 
 // 인증 실패 처리 (클라이언트 상태 정리)
 const handleAuthFailure = () => {
-  // 로그인 페이지로 리다이렉트
+  logout();
   window.location.href = '/login';
 };
 
