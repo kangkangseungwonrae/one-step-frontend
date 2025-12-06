@@ -3,10 +3,10 @@ import { Navigate, Outlet } from 'react-router';
 import { useAuth } from '@/api/queries/useAuth';
 
 export default function PublicRoutes() {
-  const { data: isAuthenticated } = useAuth();
+  const { data: isAuthenticated, isError } = useAuth();
 
-  if (isAuthenticated) {
-    return <Navigate to="/" replace />;
+  if (isError || isAuthenticated) {
+    return <Navigate to="/login" replace />;
   }
 
   return <Outlet />;

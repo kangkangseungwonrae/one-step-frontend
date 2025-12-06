@@ -16,7 +16,7 @@ type FunnelSteps = {
   step4: { selectedTask: Task; curTime: number };
 };
 
-export default function Main() {
+export default function MainPage() {
   const funnel = useFunnel<FunnelSteps>({
     id: 'main',
     initial: {

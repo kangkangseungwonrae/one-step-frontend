@@ -1,4 +1,4 @@
-import { Home, Settings } from 'lucide-react';
+import { Calendar, Home, Settings } from 'lucide-react';
 import { Link, useLocation } from 'react-router';
 
 import type { ComponentType } from 'react';
@@ -33,6 +33,7 @@ export function Nav() {
     <nav className="fixed bottom-0 left-0 right-0 border-t border-border bg-card max-w-md mx-auto">
       <div className="flex items-center justify-center">
         <NavItemComp label="HOME" href="/" icon={Home} curPath={curPath} />
+        <NavItemComp label="CALENDAR" href="/calendar" icon={Calendar} curPath={curPath} />
         <NavItemComp label="SETTING" href="/settings" icon={Settings} curPath={curPath} />
       </div>
     </nav>

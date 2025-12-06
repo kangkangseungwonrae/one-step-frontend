@@ -76,7 +76,7 @@ type StepNames = `step${number}`;
 type Answers = Record<number, string[]>;
 type FunnelSteps = Record<StepNames, { answers: Answers }>;
 
-export default function Onboarding() {
+export default function OnboardingPage() {
   const navigate = useNavigate();
   const funnel = useFunnel<FunnelSteps>({
     id: 'onboarding',
@@ -96,10 +96,7 @@ export default function Onboarding() {
       [currentQuestion.stepNumber]: answer,
     };
 
-    console.log('Updated answers:', newAnswers);
-
     if (isLastStep) {
-      console.log('Final answers:', newAnswers);
       const message = ONBOARDING_QUESTIONS.map(
         (q) => `${q.title}\n→ ${newAnswers[q.stepNumber]?.join(', ') ?? '없음'}`
       ).join('\n\n');

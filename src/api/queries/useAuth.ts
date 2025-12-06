@@ -1,9 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { getAuth } from '../services';
 
 export const useAuth = () => {
-  return useQuery({
+  return useSuspenseQuery<boolean>({
     queryKey: ['auth-status'],
     queryFn: getAuth,
     staleTime: Infinity,

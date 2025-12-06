@@ -1,11 +1,11 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 
 import { getProfile, updateProfile } from '../services';
 
-import type { UpdateProfileDto } from './dto';
+import type { Profile, UpdateProfileDto } from './dto';
 
 export const useGetProfile = () => {
-  return useQuery({
+  return useSuspenseQuery<Profile>({
     queryKey: ['profile'],
     queryFn: getProfile,
     staleTime: 1000 * 60 * 10, // 10분간 fresh

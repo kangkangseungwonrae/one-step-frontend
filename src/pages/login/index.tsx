@@ -1,7 +1,7 @@
 import GoogleIcon from '@/assets/icons/google.svg?react';
 import { Button } from '@/components/ui/button';
 
-export default function Login() {
+export default function LoginPage() {
   const handleGoogleLogin = () => {
     window.location.href = 'http://localhost:8080/auth/google/callback';
   };

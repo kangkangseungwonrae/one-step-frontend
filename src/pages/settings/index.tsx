@@ -1,4 +1,5 @@
 import { RadioGroup } from '@radix-ui/react-radio-group';
+import { useQueryClient } from '@tanstack/react-query';
 import { UserRound, Languages } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -10,6 +11,7 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Card } from '@/components/ui/card';
 import { RadioGroupItem } from '@/components/ui/radio-group';
 
+import type { Profile } from '@/api/profile/dto';
 import type { ElementType, ReactNode } from 'react';
 
 function SettingsSection({ title, icon, children }: { title: string; icon: ElementType; children: ReactNode }) {
@@ -25,16 +27,20 @@ function SettingsSection({ title, icon, children }: { title: string; icon: Eleme
   );
 }
 
-export default function Settings() {
+export default function SettingsPage() {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
+  const queryClient = useQueryClient();
 
-  const { data: profile } = useGetProfile();
+  const { data } = useGetProfile();
+  const profile = data as Profile;
   const { mutate: patchProfile } = usePatchProfile();
 
   const handleLogout = async () => {
     try {
       await logout();
+      // 인증 상태 캐시 제거 -> 다음 진입 시 /auth 재조회
+      queryClient.removeQueries({ queryKey: ['auth-status'] });
       navigate('/login');
     } catch (error) {
       console.error('Logout failed:', error);
@@ -50,13 +56,7 @@ export default function Settings() {
     }
   };
 
-  if (!profile) {
-    return <div>로딩중...</div>;
-  }
-
   const { name, image } = profile;
-
-  console.log('Current profile locale:', profile.locale);
 
   return (
     <Layout header nav>
