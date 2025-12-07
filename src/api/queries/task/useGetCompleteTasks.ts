@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getTasks } from '@/api/services';
+import { getCompleteTasks } from '@/api/services';
+
+import type { GetCompleteTaskDto } from '@/api/task/dto';
 
 export interface TasksParams {
   limit: number;
@@ -8,11 +10,11 @@ export interface TasksParams {
   keywords?: string[];
 }
 
-export const useGetTasks = (params: TasksParams, locale?: 'ko' | 'en') => {
+export const useGetCompletedTasks = ({ date }: GetCompleteTaskDto) => {
   return useQuery({
-    queryKey: ['tasks', locale, params],
-    queryFn: () => getTasks(params),
-    staleTime: 1000 * 60 * 10, // 10분간 fresh
+    queryKey: ['completed-tasks', date],
+    queryFn: () => getCompleteTasks({ date }),
+    staleTime: 0,
     gcTime: 1000 * 60 * 60, // 1시간 캐시
     refetchOnWindowFocus: false, // 탭 전환 시 refetch 안 함
   });

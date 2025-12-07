@@ -1,9 +1,12 @@
 import { useTranslation } from 'react-i18next';
 
 import MoodDialog from '../components/mood-dialog';
+import TaskIcon from '../components/task-icon';
+import { usePostCompleteTasks } from '@/api/queries/task/usePostCompleteTasks';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { getGeneralTime } from '@/lib/utils';
 
 import type { Task } from '@/api/task/dto';
 
@@ -15,24 +18,22 @@ type Step4Props = {
 };
 
 export default function Step4({ selectedTask, curTime, onNext, onBack }: Step4Props) {
-  const { description, icon, keywords } = selectedTask;
+  const { id, description, icon, keywords } = selectedTask;
   const { t } = useTranslation();
+  const { mutate: postCompleteTask } = usePostCompleteTasks();
 
-  const formatTime = (time: number) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-
-    const minUnit = t('common.time.minuteUnit');
-    const secUnit = t('common.time.secondUnit');
-
-    if (minutes === 0) return `${seconds}${secUnit}`;
-    if (seconds === 0) return `${minutes}${minUnit}`;
-
-    return `${minutes}${minUnit} ${seconds}${secUnit}`;
+  const handleComplete = () => {
+    const requestBody = {
+      taskId: id,
+      completedAt: new Date().toISOString(), // "2025-12-07T15:30:00.000Z"
+      duration: curTime,
+    };
+    postCompleteTask(requestBody);
+    onNext();
   };
 
   return (
-    <main className="flex h-full w-full flex-col items-center justify-center gap-4">
+    <main className="flex h-full w-full flex-col items-center gap-4">
       <section className="flex flex-col gap-2 w-full items-center justify-center">
         <span className="text-2xl font-bold">{t('Step4.title')}</span>
         <span className="text-md">{t('Step4.subTitle')}</span>
@@ -40,18 +41,19 @@ export default function Step4({ selectedTask, curTime, onNext, onBack }: Step4Pr
 
       <section className="w-full">
         <Card className="relative transition-colors">
-          <CardContent className="flex flex-col items-center justify-center gap-4">
-            <span className="font-semibold text-4xl">{icon.name} icon</span>
-            <span className="wrap-break-word whitespace-normal break-keep text-center font-semibold text-xl leading-snug transition-colors">
-              {description}
-            </span>
-
-            <div className="flex gap-2">
-              {keywords.map((keyword) => (
-                <Badge key={keyword.name} variant="outline">
-                  <span className="text-card-foreground  ">{keyword.name}</span>
-                </Badge>
-              ))}
+          <CardContent className="flex flex-col items-center justify-center">
+            <TaskIcon icon={icon.name} size="md" />
+            <div className="flex flex-col gap-2 items-center justify-center">
+              <span className="wrap-break-word whitespace-normal break-keep text-center font-semibold text-xl leading-snug transition-colors">
+                {description}
+              </span>
+              <div className="flex gap-2">
+                {keywords.map((keyword) => (
+                  <Badge key={keyword.name} variant="outline">
+                    <span className="text-card-foreground">{keyword.name}</span>
+                  </Badge>
+                ))}
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -61,8 +63,8 @@ export default function Step4({ selectedTask, curTime, onNext, onBack }: Step4Pr
       <Card className="w-full">
         <CardContent className="flex items-center justify-center *:font-semibold *:text-sm">
           <span>{t('Step4.timePrefix')}</span>
-          <span className="mx-1 text-secondary font-semibold">
-            {t('Step4.timeApprox', { time: formatTime(curTime) })}
+          <span className="mx-1 text-primary font-semibold">
+            {t('Step4.timeApprox', { time: getGeneralTime(t, curTime) })}
           </span>
           <span>{t('Step4.timeSuffix')}</span>
         </CardContent>
@@ -73,7 +75,7 @@ export default function Step4({ selectedTask, curTime, onNext, onBack }: Step4Pr
         <Button variant="secondary" onClick={() => onBack(curTime)}>
           {t('Step4.not-yet')}
         </Button>
-        <MoodDialog onNext={onNext} />
+        <MoodDialog onComplete={handleComplete} />
       </div>
     </main>
   );

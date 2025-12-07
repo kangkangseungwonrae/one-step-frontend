@@ -14,7 +14,7 @@ type Step2Props = {
 export default function Step2({ selectedTask, onNext, onBack }: Step2Props) {
   const { t } = useTranslation();
   return (
-    <main className="flex h-full flex-col items-center justify-center gap-4">
+    <main className="flex h-full flex-col items-center gap-4">
       <section className="flex flex-col gap-2 w-full items-center justify-center">
         <span className="text-2xl font-semibold">{t('Step2.title')}</span>
         <span className="text-md">{t('Step2.subTitle')}</span>

@@ -6,25 +6,25 @@ import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTrigger } from 
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 type MoodDialogProps = {
-  onNext: (selectedMood: string | null) => void;
+  onComplete: (selectedMood: string | null) => void;
 };
 
-export default function MoodDialog({ onNext }: MoodDialogProps) {
+export default function MoodDialog({ onComplete }: MoodDialogProps) {
   const { t } = useTranslation();
-  const [selectedMood, setSelectedMood] = useState<string>('');
+  const [selectedMood, setSelectedMood] = useState<string | null>(null);
 
-  const handleConfirm = () => {
-    onNext(selectedMood);
+  const onClickNext = () => {
+    onComplete(selectedMood);
   };
 
-  const handleSkip = () => {
-    onNext(null);
+  const onClickSkip = () => {
+    onComplete(null);
   };
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">{t('MoodDialog.done')}</Button>
+        <Button variant="default">{t('MoodDialog.done')}</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md bg-card text-card-foreground">
         <div className="flex flex-col items-center gap-4 p-5">
@@ -45,14 +45,13 @@ export default function MoodDialog({ onNext }: MoodDialogProps) {
           </RadioGroup>
         </div>
 
-        <DialogFooter className="flex *:flex-1">
+        <DialogFooter className="flex">
           <DialogClose asChild>
-            <Button type="button" variant="secondary" onClick={handleSkip}>
+            <Button variant="secondary" onClick={onClickSkip}>
               {t('MoodDialog.skip')}
             </Button>
           </DialogClose>
-
-          <Button type="button" onClick={handleConfirm}>
+          <Button onClick={onClickNext} disabled={!selectedMood}>
             {t('MoodDialog.next')}
           </Button>
         </DialogFooter>

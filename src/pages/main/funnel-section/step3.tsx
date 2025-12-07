@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { getEmojiForIcon } from '@/lib/utils';
 
 import type { Task } from '@/api/task/dto';
 
@@ -41,12 +42,12 @@ export default function Step3({ selectedTask, pausedTime = 0, onNext }: Step3Pro
   }, [isPaused]);
 
   return (
-    <main className="flex h-full w-full flex-col items-center justify-center gap-4">
+    <main className="flex h-full w-full flex-col items-center gap-4">
       <section className="flex w-full flex-col items-center justify-center gap-2">
         <Card className="w-full">
           <CardContent className="flex flex-col items-center justify-center gap-6">
-            <div className="flex gap-2 items-center">
-              <span>{icon.name}</span>
+            <div className="flex items-center">
+              <span className="text-3xl">{getEmojiForIcon(icon.name)}</span>
               <span className="font-semibold text-xl">{description}</span>
             </div>
             <div className="flex flex-col gap-2 items-center justify-center">

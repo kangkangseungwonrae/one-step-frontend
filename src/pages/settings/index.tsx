@@ -5,7 +5,7 @@ import { useState, type ElementType, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { useGetProfile, usePatchProfile } from '@/api/profile/queries';
+import { useGetProfile, useUpdateProfile } from '@/api/queries/profile';
 import { logout } from '@/api/services';
 import Layout from '@/components/layout';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
@@ -36,7 +36,7 @@ export default function SettingsPage() {
 
   const { data } = useGetProfile();
   const profile = data as Profile;
-  const { mutate: patchProfile } = usePatchProfile();
+  const { mutate: patchProfile } = useUpdateProfile();
 
   const [currentName, setCurrentName] = useState<string>(profile.name);
   const [userName, setUserName] = useState<string>(profile.name);
@@ -62,7 +62,7 @@ export default function SettingsPage() {
     }
   };
 
-  const handleChangeLanguage = (lang: 'ko' | 'en') => {
+  const handleChangeLanguage = (lang: string) => {
     try {
       patchProfile({ locale: lang });
       i18n.changeLanguage(lang);

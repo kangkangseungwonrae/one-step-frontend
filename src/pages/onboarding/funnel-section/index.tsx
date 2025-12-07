@@ -3,8 +3,9 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { usePatchProfile } from '@/api/profile/queries';
+import { useUpdateProfile } from '@/api/queries/profile';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import { ONBOARDING_NONE_OPTION_KEY, ONBOARDING_QUESTIONS } from '@/const/onboarding-questions';
 
 import type { FunnelSteps } from '..';
@@ -12,7 +13,7 @@ import type { FunnelSteps } from '..';
 export default function FunnelSection() {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { mutate: patchProfile } = usePatchProfile();
+  const { mutate: patchProfile } = useUpdateProfile();
 
   const funnel = useFunnel<FunnelSteps>({
     id: 'onboarding',
@@ -99,56 +100,60 @@ export default function FunnelSection() {
   const isNoneSelected = currentQuestion.multiple && selected.includes(ONBOARDING_NONE_OPTION_KEY);
 
   return (
-    <div className="max-w-md mx-auto h-full flex flex-col">
+    <div className="max-w-md mx-auto h-full flex flex-col relative">
       {/* Progress Bar */}
-      <div className="mb-4">
-        <p className="text-sm text-muted-foreground mb-2">
-          {currentStepIndex + 1} / {questions.length}
-        </p>
-        <div className="w-full bg-muted rounded-full h-2">
-          <div
-            className="bg-primary h-2 rounded-full transition-all duration-300"
-            style={{ width: `${((currentStepIndex + 1) / questions.length) * 100}%` }}
-          />
-        </div>
-      </div>
+      <Card>
+        <CardContent className="px-6">
+          <div className="mb-4">
+            <p className="text-sm text-mute-foreground mb-2">
+              {currentStepIndex + 1} / {questions.length}
+            </p>
+            <div className="w-full bg-muted rounded-full h-2">
+              <div
+                className="bg-primary h-2 rounded-full transition-all duration-300"
+                style={{ width: `${((currentStepIndex + 1) / questions.length) * 100}%` }}
+              />
+            </div>
+          </div>
 
-      {/* Question */}
-      <div className="flex-1 h-full">
-        <div className="flex flex-col gap-2 h-24 mb-6">
-          <h2 className="text-2xl font-bold">{t(currentQuestion.title)}</h2>
-          {currentQuestion.multiple && <p className="text-sm">{t('Onboarding.common.multiple')}</p>}
-        </div>
+          {/* Question */}
+          <div className="flex-1 h-full">
+            <div className="flex flex-col gap-2 h-24 mb-6">
+              <h2 className="text-2xl font-bold">{t(currentQuestion.title)}</h2>
+              {currentQuestion.multiple && <p className="text-sm">{t('Onboarding.common.multiple')}</p>}
+            </div>
 
-        <div className="space-y-3">
-          {currentQuestion.options.map((option) => (
-            <button
-              key={option}
-              onClick={() => handleToggle(option)}
-              disabled={currentQuestion.multiple && option !== ONBOARDING_NONE_OPTION_KEY && isNoneSelected}
-              className={`w-full p-4 rounded-sm transition-all text-left bg-card text-card-foreground ${
-                selected.includes(option)
-                  ? 'bg-primary font-medium text-primary-foreground'
-                  : 'outline-2 outline-muted-foreground hover:outline-primary/50 hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed'
-              }`}
-            >
-              {t(option)}
-            </button>
-          ))}
-        </div>
-      </div>
+            <div className="space-y-3">
+              {currentQuestion.options.map((option) => (
+                <button
+                  key={option}
+                  onClick={() => handleToggle(option)}
+                  disabled={currentQuestion.multiple && option !== ONBOARDING_NONE_OPTION_KEY && isNoneSelected}
+                  className={`w-full p-4 rounded-sm transition-all text-left cursor-pointer ${
+                    selected.includes(option)
+                      ? 'bg-primary font-medium text-primary-foreground'
+                      : 'outline-2 outline-muted hover:outline-primary/50 hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed'
+                  }`}
+                >
+                  {t(option)}
+                </button>
+              ))}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Navigation Buttons */}
-      <div className="flex gap-2">
+      <div className="absolute bottom-4 w-full flex gap-2">
         {currentStepIndex > 0 && (
-          <Button onClick={handleBack} className="flex-1 h-14 rounded-lg font-medium transition-colors">
+          <Button onClick={handleBack} className="flex-1 h-14 w-full rounded-lg font-medium transition-colors">
             {t('Onboarding.common.prev')}
           </Button>
         )}
         <Button
           onClick={handleNext}
           disabled={isDisabled}
-          className="flex-1 h-14 py-3 bg-primary text-primary-foreground rounded-lg disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-primary/90 transition-colors font-medium"
+          className="flex-1 h-14 w-full py-3 bg-primary text-primary-foreground rounded-lg disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-primary/90 transition-colors font-medium"
         >
           {isLastStep ? t('Onboarding.common.done') : t('Onboarding.common.next')}
         </Button>

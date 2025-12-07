@@ -2,7 +2,7 @@ import { useFunnel } from '@use-funnel/react-router';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
-import { useGetProfile } from '@/api/profile/queries';
+import { useGetProfile } from '@/api/queries/profile';
 import Layout from '@/components/layout';
 
 import Step1 from './funnel-section/step1';

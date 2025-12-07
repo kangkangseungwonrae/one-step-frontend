@@ -1,150 +1,167 @@
 {
+  "$schema": "../../i18n.schema.json",
+  "Calendar": {
+    "cheer": "You're doing great this month too ✨",
+    "dayRecordDateFormat": "MMM DD",
+    "dayRecordTitle": "Record for {{date}}",
+    "monthYearFormat": "MMMM YYYY",
+    "noRecords": "No completed actions on this day",
+    "title": "Calendar",
+    "totalActions": "Total {{count}} actions"
+  },
+  "Login": {
+    "googleLogin": "Sign in with Google",
+    "subtitle1": "Just one thing a day,",
+    "subtitle2": "Start with what you can do now.",
+    "terms1": "By clicking the Google sign-in button, you agree to our",
+    "terms2": "Terms of Service and Privacy Policy.",
+    "title": "One Step"
+  },
   "MoodDialog": {
-    "confirmMessage": "You selected \"{{mood}}\". Continue?",
+    "confirmMessage": "You selected \"{{mood}}.\" Would you like to continue?",
     "done": "Done",
     "headerSubTitle": "Hold on—just a few quick questions",
-    "headerTitle": "Great job!",
+    "headerTitle": "You did great!",
     "moods": {
-      "better": "A Bit Better",
+      "better": "A Little Better",
       "good": "Good",
       "hard": "Hard",
-      "normal": "Normal",
+      "normal": "Okay",
       "veryHard": "Very Hard"
     },
     "next": "Next",
     "skip": "Skip",
-    "title": "How are you feeling right now?"
+    "title": "Which option best matches how you’re feeling right now?"
   },
-  "Settings": {
-    "english": "English",
-    "korean": "한국어",
-    "language": "Language Settings",
-    "logout": "Logout",
-    "profile": "Profile"
-  },
-  "Step1": {
-    "subTitle": "choose one",
-    "swipe-task": "swipe and get new task",
-    "title": "do something",
-    "view-new-task": "view new task"
-  },
-  "Step2": {
-    "other-task": "choose other task",
-    "start": "start",
-    "subTitle": "if you ready, let's start",
-    "title": "you ready?"
-  },
-  "Step3": {
-    "done": "done",
-    "pause": "pause",
-    "progress": "progress",
-    "restart": "restart"
-  },
-  "Step4": {
-    "not-yet": "not yet",
-    "subTitle": "you done?",
-    "timeApprox": "about {{time}}",
-    "timePrefix": "You worked on this task",
-    "timeSuffix": "in total.",
-    "title": "you good"
-  },
-  "TaskCard": {
-    "tap": "tap it"
+  "NotFound": {
+    "description": "The page you're looking for doesn't exist or has been moved.",
+    "goBack": "Go Back",
+    "goHome": "Go Home",
+    "title": "Page Not Found"
   },
   "Onboarding": {
     "common": {
-      "multiple": "You can select multiple options",
-      "prev": "Previous",
-      "next": "Next",
       "done": "Done",
+      "multiple": "You can select multiple options",
+      "next": "Next",
       "none": "None",
-      "noneAnswer": "None"
+      "noneAnswer": "None",
+      "prev": "Previous"
     },
     "complete": {
-      "title": "Onboarding complete!",
-      "goToMain": "Go to the main page?"
+      "goToMain": "Go to the main page?",
+      "title": "Onboarding Complete!"
     },
     "q0": {
-      "title": "Do you have any pets?",
       "options": {
         "cat": "Cat",
         "dog": "Dog",
         "etc": "Other"
-      }
+      },
+      "title": "Do you have any pets?"
     },
     "q1": {
-      "title": "Have you enjoyed any exercise in the past?",
       "options": {
-        "yoga": "Yoga",
         "bike": "Cycling",
-        "stretch": "Stretching",
+        "gym": "Gym",
         "running": "Running",
-        "gym": "Gym"
-      }
+        "stretch": "Stretching",
+        "yoga": "Yoga"
+      },
+      "title": "Have you enjoyed any exercise in the past?"
     },
     "q2": {
-      "title": "Do you keep any plants at home?",
       "options": {
         "yes": "Yes"
-      }
+      },
+      "title": "Do you keep any plants at home?"
     },
     "q3": {
-      "title": "When things are hard, what has helped you even a little?",
       "options": {
-        "walk": "Walk",
         "cook": "Cooking",
-        "lightExercise": "Light exercise",
-        "warmShower": "Taking a warm shower",
-        "music": "Listening to upbeat music"
-      }
+        "lightExercise": "Light Exercise",
+        "music": "Upbeat Music",
+        "walk": "Walking",
+        "warmShower": "Warm Shower"
+      },
+      "title": "When things are tough, what has helped you even a little?"
     },
     "q4": {
-      "title": "What kind of music do you listen to often?",
       "options": {
-        "pop": "Pop",
-        "indie": "Indie",
-        "hiphop": "Hip-hop",
         "ballad": "Ballad",
         "classic": "Classical",
-        "lofi": "Lo-fi"
-      }
+        "hiphop": "Hip-hop",
+        "indie": "Indie",
+        "lofi": "Lo-fi",
+        "pop": "Pop"
+      },
+      "title": "What music genre do you listen to often?"
     },
     "q5": {
-      "title": "What do you usually do during breaks?",
       "options": {
+        "lieDown": "Lying Down",
         "music": "Music",
-        "video": "Video",
-        "lieDown": "Lie down",
-        "walk": "Walk",
-        "read": "Read"
-      }
+        "read": "Reading",
+        "video": "Videos",
+        "walk": "Walking"
+      },
+      "title": "What do you usually do during breaks?"
     },
     "q6": {
-      "title": "Where do you often go near your home?",
       "options": {
-        "convenienceStore": "Convenience store",
         "cafe": "Cafe",
-        "park": "Park",
-        "mart": "Supermarket"
-      }
+        "convenienceStore": "Convenience Store",
+        "mart": "Supermarket",
+        "park": "Park"
+      },
+      "title": "Where do you often go near your home?"
     },
     "q7": {
-      "title": "Where do you spend most of your time at home?",
       "options": {
         "bed": "Bed",
         "desk": "Desk",
-        "sofa": "Sofa",
+        "etc": "Other",
         "kitchen": "Kitchen",
-        "etc": "Other"
-      }
+        "sofa": "Sofa"
+      },
+      "title": "Where do you spend most of your time at home?"
     }
   },
-  "Calendar": {
-    "title": "Calendar",
-    "totalActions": "Total {{count}} actions",
-    "dayRecordTitle": "Records for {{date}}",
-    "monthYearFormat": "MMMM YYYY",
-    "dayRecordDateFormat": "MMM DD"
+  "Settings": {
+    "english": "English",
+    "korean": "Korean",
+    "language": "Language Settings",
+    "logout": "Log Out",
+    "profile": "Profile"
+  },
+  "Step1": {
+    "subTitle": "If you’re up for it, would you like to try one of these?",
+    "swipe-task": "Swipe left or right to see other actions",
+    "title": "It’s enough that you made it here today.",
+    "view-new-task": "View Another Action"
+  },
+  "Step2": {
+    "other-task": "Choose Another Action",
+    "start": "Start",
+    "subTitle": "Press Start when you’re ready",
+    "title": "Shall we begin?"
+  },
+  "Step3": {
+    "done": "Finish",
+    "pause": "Pause",
+    "progress": "In Progress",
+    "restart": "Restart"
+  },
+  "Step4": {
+    "not-yet": "Not Yet",
+    "subTitle": "Would you like to mark this as completed?",
+    "timeApprox": "{{time}}",
+    "timePrefix": "You spent",
+    "timeSuffix": "on this action.",
+    "title": "Great job!"
+  },
+  "TaskCard": {
+    "tap": "Tap to select"
   },
   "common": {
     "time": {

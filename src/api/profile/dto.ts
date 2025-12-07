@@ -2,7 +2,7 @@ export type Profile = {
   categories: string[];
   image: string;
   keywords: string[];
-  locale: 'ko' | 'en';
+  locale: string;
   name: string;
   onboarding: boolean;
 };

@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 
-import { getAuth } from '../services';
+import { getAuth } from '../../services';
 
 export const useAuth = () => {
   return useSuspenseQuery<boolean>({
