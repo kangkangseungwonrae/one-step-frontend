@@ -10,10 +10,7 @@ export interface TasksParams {
 
 export const useGetTasks = (params: TasksParams) => {
   return useSuspenseQuery({
-    queryKey: ['tasks', params],
+    queryKey: ['tasks'],
     queryFn: () => getTasks(params),
-    staleTime: 0,
-    gcTime: 1000 * 60 * 60, // 1시간 캐시
-    refetchOnWindowFocus: false, // 탭 전환 시 refetch 안 함
   });
 };
