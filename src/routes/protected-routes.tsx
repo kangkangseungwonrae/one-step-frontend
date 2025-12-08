@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useEffectEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, Outlet } from 'react-router';
 
@@ -10,11 +10,15 @@ export default function ProtectedRoute() {
   const { data: isAuthenticated, isError } = useAuth();
   const { data: profile } = useGetProfile();
 
+  const changeLocaleEffect = useEffectEvent((locale: string) => {
+    i18n.changeLanguage(locale);
+  });
+
   useEffect(() => {
     if (profile?.locale) {
-      i18n.changeLanguage(profile.locale);
+      changeLocaleEffect(profile.locale);
     }
-  }, [profile?.locale, i18n]);
+  }, [profile?.locale]);
 
   if (isError || !isAuthenticated) {
     return <Navigate to="/login" replace />;
