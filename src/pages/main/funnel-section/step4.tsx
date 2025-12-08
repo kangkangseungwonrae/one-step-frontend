@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
 import MoodDialog from '../components/mood-dialog';
@@ -22,10 +23,12 @@ export default function Step4({ selectedTask, curTime, onNext, onBack }: Step4Pr
   const { t } = useTranslation();
   const { mutate: postCompleteTask } = usePostCompleteTasks();
 
-  const handleComplete = () => {
+  const handleComplete = (selectedMood: string | null) => {
+    console.warn('언젠가 쓰일 selectedMood', selectedMood);
+
     const requestBody = {
       taskId: id,
-      completedAt: new Date().toISOString(), // "2025-12-07T15:30:00.000Z"
+      completedAt: dayjs().utc().toISOString(),
       duration: curTime,
     };
     postCompleteTask(requestBody);

@@ -1,5 +1,4 @@
 import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -8,8 +7,6 @@ import { Calendar } from '@/components/ui/calendar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 import RecordList from './components/record-list';
-
-dayjs.extend(utc);
 
 export default function CalendarPage() {
   const { t } = useTranslation();

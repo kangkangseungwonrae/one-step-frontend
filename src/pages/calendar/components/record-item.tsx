@@ -35,9 +35,9 @@ export default function RecordItem({ completedTask }: RecordItemProps) {
       </div>
       <div className="flex gap-2 items-center">
         <div className="flex gap-2 *:text-xs *:text-neutral-500">
-          <span>{dayjs(startTime).format('mm:ss')}</span>
+          <span>{dayjs(startTime).format('hh:mm')}</span>
           <span>{`->`}</span>
-          <span>{dayjs(endTime).format('mm:ss')}</span>
+          <span>{dayjs(endTime).format('hh:mm')}</span>
         </div>
         <Badge size="sm">{getGeneralTime(t, duration)}</Badge>
       </div>
