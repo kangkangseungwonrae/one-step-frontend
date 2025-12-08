@@ -29,8 +29,8 @@ export default function RecordList({ date }: RecordListProps) {
 
   return (
     <div className="flex flex-col gap-2 overflow-auto">
-      {completedTasks.map((task: CompletedTask, index: number) => (
-        <RecordItem key={`${index}-${task.completedAt}`} completedTask={task} />
+      {completedTasks.map((task: CompletedTask) => (
+        <RecordItem key={task.id} completedTask={task} />
       ))}
     </div>
   );

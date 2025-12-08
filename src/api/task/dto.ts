@@ -20,7 +20,8 @@ export interface PostCompleteTaskDto {
 
 // Response DTO
 export interface CompletedTask {
+  id: number;
   completedAt: string;
   duration: number;
-  task: Omit<Task, 'id'>;
+  task: Task;
 }
