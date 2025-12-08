@@ -1,15 +1,22 @@
 import { useTranslation } from 'react-i18next';
+import { Navigate } from 'react-router';
 
+import { useAuth } from '@/api/queries/auth/useAuth';
 import GoogleIcon from '@/assets/icons/google.svg?react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function LoginPage() {
   const { t } = useTranslation();
+  const { data: isAuthenticated } = useAuth();
 
   const handleGoogleLogin = () => {
     window.location.href = 'http://localhost:8080/auth/google/callback';
   };
+
+  if (isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center px-12">
