@@ -6,8 +6,8 @@ export const useAuth = () => {
   return useSuspenseQuery<boolean>({
     queryKey: ['auth-status'],
     queryFn: getAuth,
-    staleTime: Infinity,
-    gcTime: Infinity,
+    staleTime: 1000 * 60 * 15, // 15분간 fresh
+    gcTime: 1000 * 60 * 15,
     retry: false,
   });
 };

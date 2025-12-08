@@ -7,15 +7,15 @@ import type { CompletedTask, GetCompleteTaskDto, PostCompleteTaskDto, Task } fro
 import type { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 
 export const logout = async (): Promise<AxiosResponse> => {
-  const response = await api.post('/auth/logout');
+  const response = await api.post('/auth/logout', {}, {
+    _skipInterceptor: true,
+  } as AxiosRequestConfig);
   return response;
 };
 
 export const getAuth = async (): Promise<boolean> => {
   try {
-    const { data } = await api.get<{ authenticated: boolean }>('/auth', {
-      _skipInterceptor: true,
-    } as AxiosRequestConfig);
+    const { data } = await api.get<{ authenticated: boolean }>('/auth');
 
     return data.authenticated;
   } catch (error) {
