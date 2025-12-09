@@ -1,8 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 import TaskCard from '../components/task-card';
-import { useGetProfile } from '@/api/profile/queries';
-import { useGetTasks } from '@/api/queries/useGetTasks';
+import { useGetTasks } from '@/api/queries/task/useGetTasks';
 import { Button } from '@/components/ui/button';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
@@ -18,29 +17,25 @@ type Step1Props = {
  */
 export default function Step1({ onNext }: Step1Props) {
   const { t } = useTranslation();
-  const { data: profile } = useGetProfile();
   const {
     data: tasks,
     isLoading,
     refetch,
-  } = useGetTasks(
-    {
-      limit: 10,
-      // categories: [''],
-      // keywords: [''],
-    },
-    profile?.locale
-  );
+  } = useGetTasks({
+    limit: 10,
+    // categories: [''],
+    // keywords: [''],
+  });
 
   const handleRefreshTasks = () => {
     refetch();
   };
 
   return (
-    <main className="flex h-full flex-col items-center justify-center gap-4">
+    <main className="flex h-full flex-col items-center gap-4">
       <section className="flex flex-col gap-2 w-full items-center justify-center">
-        <span className="text-2xl font-semibold">{t('Step1.title')}</span>
-        <span className="text-md">{t('Step1.subTitle')}</span>
+        <span className="text-2xl font-bold text-center">{t('Step1.title')}</span>
+        <span>{t('Step1.subTitle')}</span>
       </section>
       <section>
         {isLoading || !tasks ? (

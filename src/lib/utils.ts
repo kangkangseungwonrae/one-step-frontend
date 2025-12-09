@@ -7,15 +7,28 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const getGeneralTime = (t: TFunction<'translation', undefined>, time: number) => {
+export function getGeneralTime(t: TFunction, time: number) {
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
 
-  if (minutes === 0) {
-    return `${seconds}${t('common.time.secondUnit')}`;
-  }
-  if (seconds === 0) {
-    return `${minutes}${t('common.time.minuteUnit')}`;
-  }
-  return `${minutes}${t('common.time.minuteUnit')} ${seconds}${t('common.time.secondUnit')}`;
-};
+  const minUnit = t('common.time.minuteUnit');
+  const secUnit = t('common.time.secondUnit');
+
+  if (minutes === 0) return `${seconds}${secUnit}`;
+  if (seconds === 0) return `${minutes}${minUnit}`;
+
+  return `${minutes}${minUnit} ${seconds}${secUnit}`;
+}
+
+export function getEmojiForIcon(iconName: string) {
+  const mapping: { [key: string]: string } = {
+    health: '💊',
+    exercise: '💪',
+    rest: '😴',
+    organization: '📋',
+    productivity: '⚡',
+    hygiene: '🧼',
+  };
+
+  return mapping[iconName] || '❓'; // 없으면 물음표
+}

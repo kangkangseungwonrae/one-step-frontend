@@ -8,11 +8,18 @@ const OnboardingPage = lazy(() => import('@/pages/onboarding'));
 const SettingsPage = lazy(() => import('@/pages/settings'));
 const ProtectedRoute = lazy(() => import('@/routes/protected-routes'));
 const PublicRoutes = lazy(() => import('@/routes/public-routes'));
+const NotFoundPage = lazy(() => import('@/pages/error/NotFoundPage'));
 
 export const router = createBrowserRouter([
   {
     element: <PublicRoutes />,
-    children: [{ path: '/login', Component: LoginPage }],
+    children: [
+      { path: '/login', Component: LoginPage },
+      {
+        path: '*',
+        Component: NotFoundPage,
+      },
+    ],
   },
   {
     element: <ProtectedRoute />,
@@ -21,6 +28,10 @@ export const router = createBrowserRouter([
       { path: '/onboarding', Component: OnboardingPage },
       { path: '/calendar', Component: CalendarPage },
       { path: '/settings', Component: SettingsPage },
+      {
+        path: '*',
+        Component: NotFoundPage,
+      },
     ],
   },
 ]);

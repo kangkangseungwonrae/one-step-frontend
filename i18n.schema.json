@@ -11,11 +11,11 @@
         }
       },
       "patternProperties": {
-        "^[0-9A-Z].*$": {
+        "^[0-9].*$": {
           "type": "string"
         },
-        "^[a-z].*$": {
-          "$ref": "#/definitions/recursiveSchema"
+        "^[A-Za-z].*$": {
+          "oneOf": [{ "type": "string" }, { "$ref": "#/definitions/recursiveSchema" }]
         }
       }
     }

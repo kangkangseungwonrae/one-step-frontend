@@ -19,9 +19,11 @@ type LayoutProps = {
 export default function Layout({ children, hasHeader = false, hasNav = false }: LayoutProps) {
   return (
     <main className="flex-1 flex flex-col h-screen">
-      <div className={`flex flex-col max-w-md mx-auto w-full h-full flex-1 ${hasNav ? 'mb-20' : ''}`}>
+      <div className={`flex flex-col max-w-md mx-auto w-full h-full flex-1`}>
         {hasHeader && <Header />}
-        <div className="p-4 flex-1 h-full">{children}</div>
+        <div className={`p-4 flex-1 h-full overflow-auto scrollbar-hide ${hasNav ? 'pb-[calc(74px+16px)]' : ''}`}>
+          {children}
+        </div>
       </div>
       {hasNav && <Nav />}
     </main>

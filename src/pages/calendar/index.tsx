@@ -6,12 +6,16 @@ import Layout from '@/components/layout';
 import { Calendar } from '@/components/ui/calendar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
+import RecordList from './components/record-list';
+
 export default function CalendarPage() {
   const { t } = useTranslation();
   const [date, setDate] = useState<Date | undefined>(new Date());
 
   const monthYearFormat = t('Calendar.monthYearFormat');
   const dayRecordDateFormat = t('Calendar.dayRecordDateFormat');
+
+  const isoDate = dayjs(date).utc().startOf('day').toISOString();
 
   return (
     <Layout hasHeader hasNav>
@@ -41,8 +45,15 @@ export default function CalendarPage() {
                 </span>
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <div></div>
+            <CardContent className="px-6 overflow-auto h-fit max-h-[calc(114px*5)]">
+              <RecordList date={isoDate} />
+            </CardContent>
+          </Card>
+        </section>
+        <section>
+          <Card>
+            <CardContent className="flex justify-center">
+              <span>{t('Calendar.cheer')}</span>
             </CardContent>
           </Card>
         </section>

@@ -5,6 +5,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { getGeneralTime } from '@/lib/utils';
 import { cn } from '@/lib/utils';
 
+import TaskIcon from './task-icon';
+
 import type { Task } from '@/api/task/dto';
 
 interface TaskCardProps {
@@ -26,20 +28,22 @@ export default function TaskCard({ task, onNext, hover = false }: TaskCardProps)
       )}
     >
       <CardContent className="flex aspect-square flex-col items-center justify-center gap-6">
-        <span className="font-semibold text-4xl">{icon.name}</span>
-        <span
-          className={cn(
-            'wrap-break-word whitespace-normal break-keep text-center font-semibold text-xl leading-snug transition-colors',
-            hover && 'group-hover:text-primary'
-          )}
-          style={{ overflowWrap: 'anywhere' }}
-        >
-          {description}
-        </span>
+        <div className="flex flex-col justify-center items-center">
+          <TaskIcon icon={icon.name} />
+          <span
+            className={cn(
+              'wrap-break-word whitespace-normal break-keep text-center font-semibold text-xl leading-snug transition-colors',
+              hover && 'group-hover:text-primary'
+            )}
+            style={{ overflowWrap: 'anywhere' }}
+          >
+            {description}
+          </span>
+        </div>
         <div className="flex gap-2">
           {keywords.map((keyword) => {
             return (
-              <Badge key={keyword.name} variant="outline">
+              <Badge key={keyword.name} variant="secondary">
                 <span className="text-card-foreground">{keyword.name}</span>
               </Badge>
             );
