@@ -4,7 +4,7 @@ import { api } from '@/api/axios';
 import type { Profile, UpdateProfileDto } from './profile/dto';
 import type { TasksParams } from './queries/task/useGetTasks';
 import type { CompletedTask, GetCompleteTaskDto, PostCompleteTaskDto, Task } from './task/dto';
-import type { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export const logout = async (): Promise<AxiosResponse> => {
   const response = await api.post('/auth/logout', {}, {
@@ -16,14 +16,9 @@ export const logout = async (): Promise<AxiosResponse> => {
 export const getAuth = async (): Promise<boolean> => {
   try {
     const { data } = await api.get<{ authenticated: boolean }>('/auth');
-
     return data.authenticated;
-  } catch (error) {
-    const err = error as AxiosError;
-    if (err.response?.status === 401) {
-      return false;
-    }
-    throw error;
+  } catch {
+    return false;
   }
 };
 

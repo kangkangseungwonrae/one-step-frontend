@@ -55,75 +55,75 @@
     },
     "q0": {
       "options": {
-        "cat": "고양이",
-        "dog": "강아지",
-        "etc": "기타"
+        "Cat": "고양이",
+        "Dog": "강아지",
+        "Etc": "기타"
       },
       "title": "반려동물이 있나요?"
     },
     "q1": {
       "options": {
-        "bike": "자전거",
-        "gym": "헬스",
-        "running": "러닝",
-        "stretch": "스트레칭",
-        "yoga": "요가"
+        "Cycling": "자전거",
+        "Gym": "헬스",
+        "Running": "러닝",
+        "Stretch": "스트레칭",
+        "Yoga": "요가"
       },
       "title": "예전에 좋아했던 운동이 있나요?"
     },
     "q2": {
       "options": {
-        "yes": "있다"
+        "Yes": "있다"
       },
       "title": "집에서 식물을 키우고 있나요?"
     },
     "q3": {
       "options": {
-        "cook": "요리",
-        "lightExercise": "간단한 운동",
-        "music": "신나는 음악 듣기",
-        "walk": "산책",
-        "warmShower": "따뜻한 물로 샤워하기"
+        "Cook": "요리",
+        "LightExercise": "간단한 운동",
+        "Music": "신나는 음악 듣기",
+        "Walk": "산책",
+        "WarmShower": "따듯한 물로 샤워하기"
       },
       "title": "힘들 때, 그나마 도움이 되었던 행동이 있다면 무엇인가요?"
     },
     "q4": {
       "options": {
-        "ballad": "발라드",
-        "classic": "클래식",
-        "hiphop": "힙합",
-        "indie": "인디",
-        "lofi": "로파이",
-        "pop": "팝"
+        "Ballad": "발라드",
+        "Classic": "클래식",
+        "Hiphop": "힙합",
+        "Indie": "인디",
+        "Lofi": "로파이",
+        "Pop": "팝"
       },
       "title": "자주 듣는 음악 장르는?"
     },
     "q5": {
       "options": {
-        "lieDown": "누워있기",
-        "music": "음악",
-        "read": "독서",
-        "video": "영상",
-        "walk": "산책"
+        "LieDown": "누워있기",
+        "Music": "음악 듣기",
+        "Read": "독서",
+        "Video": "영상 보기",
+        "Walk": "산책"
       },
       "title": "쉬는 시간에 가장 자주 하는 건?"
     },
     "q6": {
       "options": {
-        "cafe": "카페",
-        "convenienceStore": "편의점",
-        "mart": "마트",
-        "park": "공원"
+        "Cafe": "카페",
+        "ConvenienceStore": "편의점",
+        "Mart": "마트",
+        "Park": "공원"
       },
       "title": "집 근처에서 자주 가는 곳이 있나요?"
     },
     "q7": {
       "options": {
-        "bed": "침대",
-        "desk": "책상",
-        "etc": "기타",
-        "kitchen": "주방",
-        "sofa": "소파"
+        "Bed": "침대",
+        "Desk": "책상",
+        "Etc": "기타",
+        "Kitchen": "주방",
+        "Sofa": "소파"
       },
       "title": "집에서 제일 오래 있는 공간은?"
     }

@@ -54,75 +54,75 @@
     },
     "q0": {
       "options": {
-        "cat": "Cat",
-        "dog": "Dog",
-        "etc": "Other"
+        "Cat": "Cat",
+        "Dog": "Dog",
+        "Etc": "Other"
       },
       "title": "Do you have any pets?"
     },
     "q1": {
       "options": {
-        "bike": "Cycling",
-        "gym": "Gym",
-        "running": "Running",
-        "stretch": "Stretching",
-        "yoga": "Yoga"
+        "Cycling": "Cycling",
+        "Gym": "Gym",
+        "Running": "Running",
+        "Stretch": "Stretching",
+        "Yoga": "Yoga"
       },
       "title": "Have you enjoyed any exercise in the past?"
     },
     "q2": {
       "options": {
-        "yes": "Yes"
+        "Yes": "Yes"
       },
       "title": "Do you keep any plants at home?"
     },
     "q3": {
       "options": {
-        "cook": "Cooking",
-        "lightExercise": "Light Exercise",
-        "music": "Upbeat Music",
-        "walk": "Walking",
-        "warmShower": "Warm Shower"
+        "Cook": "Cooking",
+        "LightExercise": "Light Exercise",
+        "Music": "Upbeat Music",
+        "Walk": "Walking",
+        "WarmShower": "Warm Shower"
       },
       "title": "When things are tough, what has helped you even a little?"
     },
     "q4": {
       "options": {
-        "ballad": "Ballad",
-        "classic": "Classical",
-        "hiphop": "Hip-hop",
-        "indie": "Indie",
-        "lofi": "Lo-fi",
-        "pop": "Pop"
+        "Ballad": "Ballad",
+        "Classic": "Classical",
+        "Hiphop": "Hip Hop",
+        "Indie": "Indie",
+        "Lofi": "Lo-fi",
+        "Pop": "Pop"
       },
       "title": "What music genre do you listen to often?"
     },
     "q5": {
       "options": {
-        "lieDown": "Lying Down",
-        "music": "Music",
-        "read": "Reading",
-        "video": "Videos",
-        "walk": "Walking"
+        "LieDown": "Lying Down",
+        "Music": "Listening to Music",
+        "Read": "Reading",
+        "Video": "Watching Videos",
+        "Walk": "Walking"
       },
       "title": "What do you usually do during breaks?"
     },
     "q6": {
       "options": {
-        "cafe": "Cafe",
-        "convenienceStore": "Convenience Store",
-        "mart": "Supermarket",
-        "park": "Park"
+        "Cafe": "Cafe",
+        "ConvenienceStore": "Convenience Store",
+        "Mart": "Supermarket",
+        "Park": "Park"
       },
       "title": "Where do you often go near your home?"
     },
     "q7": {
       "options": {
-        "bed": "Bed",
-        "desk": "Desk",
-        "etc": "Other",
-        "kitchen": "Kitchen",
-        "sofa": "Sofa"
+        "Bed": "Bed",
+        "Desk": "Desk",
+        "Etc": "Other",
+        "Kitchen": "Kitchen",
+        "Sofa": "Sofa"
       },
       "title": "Where do you spend most of your time at home?"
     }
