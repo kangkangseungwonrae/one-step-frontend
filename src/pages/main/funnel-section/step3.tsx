@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import useFunnelStore from '../stores/useFunnelStore';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { getEmojiForIcon } from '@/lib/utils';
 
-import type { Task } from '@/api/task/dto';
-
 type Step3Props = {
-  selectedTask: Task;
   pausedTime?: number;
-  onNext: (selectedTask: Task, curTime: number) => void;
+  onNext: (curTime: number) => void;
 };
 
 const formatTime = (time: number) => {
@@ -19,7 +17,13 @@ const formatTime = (time: number) => {
   return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 };
 
-export default function Step3({ selectedTask, pausedTime = 0, onNext }: Step3Props) {
+export default function Step3({ pausedTime = 0, onNext }: Step3Props) {
+  const selectedTask = useFunnelStore((state) => state.selectedTask);
+
+  if (!selectedTask) {
+    return null;
+  }
+
   const { description, icon } = selectedTask;
 
   const { t } = useTranslation();
@@ -64,7 +68,7 @@ export default function Step3({ selectedTask, pausedTime = 0, onNext }: Step3Pro
         <Button variant={isPaused ? 'secondary' : 'outline'} onClick={() => setIsPaused((prev) => !prev)}>
           {isPaused ? t('Step3.restart') : t('Step3.pause')}
         </Button>
-        <Button onClick={() => onNext(selectedTask, curTime)}>{t('Step3.done')}</Button>
+        <Button onClick={() => onNext(curTime)}>{t('Step3.done')}</Button>
       </section>
     </main>
   );

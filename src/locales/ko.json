@@ -1,7 +1,7 @@
 {
   "$schema": "../../i18n.schema.json",
   "Calendar": {
-    "cheer": "이번 달에도 꾸준이 해내고 있어요 ✨",
+    "cheer": "이번 달에도 꾸준히 해내고 있어요 ✨",
     "dayRecordDateFormat": "MM월 DD일",
     "dayRecordTitle": "{{date}}의 기록",
     "monthYearFormat": "YYYY년 MM월",
@@ -127,6 +127,13 @@
       },
       "title": "집에서 제일 오래 있는 공간은?"
     }
+  },
+  "QuestionDialog": {
+    "goToMain": "메인 페이지로 이동",
+    "next": "다음",
+    "skip": "건너뛰기",
+    "subTitle": "{{name}}님에 대해 좀 더 알고 싶어요.",
+    "title": "추가 질문"
   },
   "Settings": {
     "english": "English",

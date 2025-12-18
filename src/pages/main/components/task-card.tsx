@@ -11,17 +11,17 @@ import type { Task } from '@/api/task/dto';
 
 interface TaskCardProps {
   task: Task;
-  onNext?: (task: Task) => void;
+  onClick?: () => void;
   hover?: boolean;
 }
 
-export default function TaskCard({ task, onNext, hover = false }: TaskCardProps) {
+export default function TaskCard({ task, onClick, hover = false }: TaskCardProps) {
   const { t } = useTranslation();
   const { description, duration, keywords, icon } = task;
 
   return (
     <Card
-      onClick={() => onNext && onNext(task)}
+      onClick={onClick}
       className={cn(
         'relative transition-colors',
         hover && 'hover:border-2 hover:border-primary hover:bg-card/80 group cursor-pointer'

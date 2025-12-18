@@ -1,39 +1,25 @@
-import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
 import MoodDialog from '../components/mood-dialog';
 import TaskIcon from '../components/task-icon';
-import { usePostCompleteTasks } from '@/api/queries/task/usePostCompleteTasks';
+import useFunnelStore from '../stores/useFunnelStore';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { getGeneralTime } from '@/lib/utils';
 
-import type { Task } from '@/api/task/dto';
-
 type Step4Props = {
-  selectedTask: Task;
   curTime: number;
-  onNext: () => void;
   onBack: (pausedTime: number) => void;
 };
 
-export default function Step4({ selectedTask, curTime, onNext, onBack }: Step4Props) {
-  const { id, description, icon, keywords } = selectedTask;
+export default function Step4({ curTime, onBack }: Step4Props) {
+  const selectedTask = useFunnelStore((state) => state.selectedTask);
+  if (!selectedTask) {
+    return null;
+  }
+  const { description, icon, keywords } = selectedTask;
   const { t } = useTranslation();
-  const { mutate: postCompleteTask } = usePostCompleteTasks();
-
-  const handleComplete = (selectedMood: string | null) => {
-    console.warn('언젠가 쓰일 selectedMood', selectedMood);
-
-    const requestBody = {
-      taskId: id,
-      completedAt: dayjs().utc().toISOString(),
-      duration: curTime,
-    };
-    postCompleteTask(requestBody);
-    onNext();
-  };
 
   return (
     <main className="flex h-full w-full flex-col items-center gap-4">
@@ -78,7 +64,7 @@ export default function Step4({ selectedTask, curTime, onNext, onBack }: Step4Pr
         <Button variant="secondary" onClick={() => onBack(curTime)}>
           {t('Step4.not-yet')}
         </Button>
-        <MoodDialog onComplete={handleComplete} />
+        <MoodDialog />
       </div>
     </main>
   );

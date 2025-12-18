@@ -56,3 +56,10 @@ export const postCompleteTask = async (body: PostCompleteTaskDto) => {
   const response = await api.post('/completed-tasks', body);
   return response;
 };
+
+export const getFollowingQuestion = async ({ categories }: { categories?: string[] }) => {
+  const params = new URLSearchParams();
+  categories?.forEach((c) => params.append('categories', c));
+  const { data } = await api.get(`/following-question?${params.toString()}`);
+  return data;
+};

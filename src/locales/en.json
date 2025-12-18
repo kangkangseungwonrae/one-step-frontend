@@ -127,6 +127,14 @@
       "title": "Where do you spend most of your time at home?"
     }
   },
+  "QuestionDialog": {
+    "goToMain": "Go to Main",
+    "next": "Next",
+    "skip": "Skip",
+
+    "subTitle": "I'd like to know more about {{name}}.",
+    "title": "Follow-up Questions"
+  },
   "Settings": {
     "english": "English",
     "korean": "Korean",
