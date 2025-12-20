@@ -170,6 +170,7 @@
     "title": "Great job!"
   },
   "TaskCard": {
+    "empty": "No task",
     "tap": "Tap to select"
   },
   "common": {

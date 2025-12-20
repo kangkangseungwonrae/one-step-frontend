@@ -1,7 +1,7 @@
 export type Profile = {
-  categories: string[];
+  categories: { name: string }[];
   image: string;
-  keywords: string[];
+  keywords: { name: string }[];
   locale: string;
   name: string;
   onboarding: boolean;
