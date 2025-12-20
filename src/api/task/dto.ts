@@ -25,3 +25,16 @@ export interface CompletedTask {
   duration: number;
   task: Task;
 }
+
+export interface FollowingQuestionDto {
+  id: number;
+  question: string;
+  keywords: { id: number; name: string }[];
+  categories: { name: string }[];
+}
+
+export interface PostFollowingQuestionDto {
+  followingQuestionId: number;
+  keywordIds: number[];
+  completedAt: string;
+}

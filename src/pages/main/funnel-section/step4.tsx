@@ -1,8 +1,13 @@
+import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 
 import MoodDialog from '../components/mood-dialog';
+import QuestionDialog from '../components/question-dialog';
 import TaskIcon from '../components/task-icon';
 import useFunnelStore from '../stores/useFunnelStore';
+import { usePostCompleteTasks } from '@/api/queries/task';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -14,12 +19,40 @@ type Step4Props = {
 };
 
 export default function Step4({ curTime, onBack }: Step4Props) {
+  const navigate = useNavigate();
   const selectedTask = useFunnelStore((state) => state.selectedTask);
+
+  const [isMoodDialogOpen, setIsMoodDialogOpen] = useState(false);
+  const [isQuestionDialogOpen, setIsQuestionDialogOpen] = useState(false);
+
+  const { mutate: postCompleteTask } = usePostCompleteTasks();
+
+  useEffect(() => {
+    if (!selectedTask) {
+      navigate('/', { replace: true });
+    }
+  }, [selectedTask, navigate]);
+
   if (!selectedTask) {
     return null;
   }
+
   const { description, icon, keywords } = selectedTask;
   const { t } = useTranslation();
+
+  const handlePostCompleteTask = () => {
+    setIsMoodDialogOpen(true);
+
+    const requestBody = {
+      taskId: selectedTask.id,
+      completedAt: dayjs().utc().toISOString(),
+      duration: curTime,
+    };
+
+    postCompleteTask(requestBody);
+  };
+
+  if (!selectedTask) return null;
 
   return (
     <main className="flex h-full w-full flex-col items-center gap-4">
@@ -27,7 +60,6 @@ export default function Step4({ curTime, onBack }: Step4Props) {
         <span className="text-2xl font-bold">{t('Step4.title')}</span>
         <span className="text-md">{t('Step4.subTitle')}</span>
       </section>
-
       <section className="w-full">
         <Card className="relative transition-colors">
           <CardContent className="flex flex-col items-center justify-center">
@@ -64,8 +96,17 @@ export default function Step4({ curTime, onBack }: Step4Props) {
         <Button variant="secondary" onClick={() => onBack(curTime)}>
           {t('Step4.not-yet')}
         </Button>
-        <MoodDialog />
+        <Button variant="default" onClick={handlePostCompleteTask}>
+          {t('Step4.done')}
+        </Button>
       </div>
+
+      <MoodDialog
+        isOpen={isMoodDialogOpen}
+        setIsOpen={setIsMoodDialogOpen}
+        onNext={() => setIsQuestionDialogOpen(true)}
+      />
+      <QuestionDialog isOpen={isQuestionDialogOpen} setIsOpen={setIsQuestionDialogOpen} />
     </main>
   );
 }

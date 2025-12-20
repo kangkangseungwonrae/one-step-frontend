@@ -128,10 +128,10 @@
     }
   },
   "QuestionDialog": {
+    "confirm": "Confirm",
     "goToMain": "Go to Main",
     "next": "Next",
     "skip": "Skip",
-
     "subTitle": "I'd like to know more about {{name}}.",
     "title": "Follow-up Questions"
   },
@@ -161,6 +161,7 @@
     "restart": "Restart"
   },
   "Step4": {
+    "done": "Completed",
     "not-yet": "Not Yet",
     "subTitle": "Would you like to mark this as completed?",
     "timeApprox": "{{time}}",

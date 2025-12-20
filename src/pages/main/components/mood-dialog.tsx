@@ -1,41 +1,50 @@
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 import { useShallow } from 'zustand/react/shallow';
 
 import useFunnelStore from '../stores/useFunnelStore';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogFooter } from '@/components/ui/dialog';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
-import QuestionDialog from './question-dialog';
+interface MoodDialogProps {
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+  onNext?: () => void;
+}
 
-export default function MoodDialog() {
+export default function MoodDialog({ isOpen, setIsOpen, onNext }: MoodDialogProps) {
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const [selectedMood, setSelectedMood] = useFunnelStore(
     useShallow((state) => [state.selectedMood, state.setSelectedMood])
   );
 
-  const [isMoodDialogOpen, setIsMoodDialogOpen] = useState(false);
-  const [isQuestionDialogOpen, setIsQuestionDialogOpen] = useState(false);
+  // 건너뛰기/다음 버튼 클릭 시 공통 로직
+  const proceed = () => {
+    setIsOpen(false);
+    onNext?.(); // QuestionDialog 열기
+  };
 
   const handleSkip = () => {
     setSelectedMood(null);
-    setIsMoodDialogOpen(false);
-    setIsQuestionDialogOpen(true);
+    proceed();
   };
 
-  const handleNext = () => {
-    setIsMoodDialogOpen(false);
-    setIsQuestionDialogOpen(true);
+  // 다이얼로그 외부 클릭이나 닫기 버튼으로 닫힐 때 처리
+  const handleOpenChange = (open: boolean) => {
+    if (!open) {
+      navigate('/');
+    }
+    setIsOpen(open);
   };
+
+  // TODO: selectedMood 초기화
 
   return (
     <>
-      <Dialog open={isMoodDialogOpen} onOpenChange={setIsMoodDialogOpen}>
-        <DialogTrigger asChild>
-          <Button variant="default">{t('MoodDialog.done')}</Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-md bg-card text-card-foreground">
+      <Dialog open={isOpen} onOpenChange={handleOpenChange}>
+        <DialogContent className="w-md bg-card text-card-foreground">
           <div className="flex flex-col items-center gap-4 p-5">
             <div className="flex flex-col items-center justify-center gap-1">
               <span className="text-3xl">👏</span>
@@ -51,17 +60,16 @@ export default function MoodDialog() {
               <RadioGroupItem value="good">😊 {t('MoodDialog.moods.good')}</RadioGroupItem>
             </RadioGroup>
           </div>
-          <DialogFooter className="flex">
+          <DialogFooter className="flex flex-row gap-2 px-5">
             <Button variant="secondary" onClick={handleSkip}>
               {t('MoodDialog.skip')}
             </Button>
-            <Button variant="default" onClick={handleNext} disabled={!selectedMood}>
+            <Button className="flex-1" variant="default" onClick={proceed} disabled={!selectedMood}>
               {t('MoodDialog.next')}
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
-      <QuestionDialog open={isQuestionDialogOpen} onClose={() => setIsQuestionDialogOpen(false)} />
     </>
   );
 }

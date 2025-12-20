@@ -1,49 +1,68 @@
 import dayjs from 'dayjs';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
+import { useShallow } from 'zustand/react/shallow';
 
 import useFunnelStore from '../stores/useFunnelStore';
 import { useGetProfile } from '@/api/queries/profile';
 import { useGetFollowingQuestion } from '@/api/queries/task/useGetFollowingQuestion';
-import { usePostCompleteTasks } from '@/api/queries/task/usePostCompleteTasks';
+import { usePostFollowingQuestion } from '@/api/queries/task/usePostFollowingQuestion';
 import { Button } from '@/components/ui/button';
+import { CheckboxGroup, CheckboxGroupItem } from '@/components/ui/checkbox-group';
 import { Dialog, DialogContent, DialogFooter } from '@/components/ui/dialog';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 type QuestionDialogProps = {
-  open?: boolean;
-  onClose?: () => void;
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
 };
 
-export default function QuestionDialog({ open, onClose }: QuestionDialogProps) {
+export default function QuestionDialog({ isOpen, setIsOpen }: QuestionDialogProps) {
+  const navigate = useNavigate();
   const { t } = useTranslation();
-  const selectedTask = useFunnelStore((state) => state.selectedTask);
-  const selectedMood = useFunnelStore((state) => state.selectedMood);
+  const selectedTask = useFunnelStore(useShallow((state) => [state.selectedTask, state.selectedMood]));
+
   const { data: profile } = useGetProfile();
-
-  const { mutate: postCompleteTask } = usePostCompleteTasks();
   const { data: followingQuestion } = useGetFollowingQuestion({ categories: ['정신 건강', '회복탄력성'] });
-  if (!selectedTask || !selectedTask.id) {
-    return null;
-  }
+  const { mutate: postFollowingQuestion } = usePostFollowingQuestion();
 
-  const handlePostCompleteTask = () => {
-    console.log(selectedMood); // 어떻게든 쓰일 mood
-    console.log(followingQuestion);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
-    const requestBody = {
-      taskId: selectedTask.id,
-      completedAt: dayjs().utc().toISOString(),
-      duration: 0, // ! 이거 바꿔야 함!!@
-    };
-
-    postCompleteTask(requestBody);
-    onClose?.();
-  };
+  if (!selectedTask) return null;
 
   // post complete task
+
+  // 제출 로직
+  const handlePostCompleteTask = () => {
+    if (!followingQuestion) return;
+
+    postFollowingQuestion(
+      {
+        followingQuestionId: followingQuestion.id,
+        // keywordIds: selectedIds.map(Number),
+        keywordIds: [1, 2, 3], // TODO: 임시 하드코딩
+        completedAt: dayjs().toISOString(),
+      },
+      {
+        onSuccess: () => {
+          setIsOpen(false);
+          navigate('/', { replace: true });
+        },
+      }
+    );
+  };
+
+  const handleOpenChange = (open: boolean) => {
+    if (!open) {
+      // 답변 없이 닫으면 그냥 메인으로
+      navigate('/');
+    }
+    setIsOpen(open);
+  };
+
   return (
-    <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md bg-card text-card-foreground">
+    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
+      <DialogContent className="w-md bg-card text-card-foreground">
         <div className="flex flex-col items-center gap-4 p-5">
           <div className="flex flex-col items-center justify-center gap-1">
             <span className="text-3xl">💬</span>
@@ -51,16 +70,23 @@ export default function QuestionDialog({ open, onClose }: QuestionDialogProps) {
             <span className="text-xs text-neutral-500">{t('QuestionDialog.subTitle', { name: profile?.name })}</span>
           </div>
 
-          <RadioGroup className="w-full flex flex-col gap-2">
-            <RadioGroupItem value="option1">option1</RadioGroupItem>
-            <RadioGroupItem value="option2">option2</RadioGroupItem>
-            <RadioGroupItem value="option3">option3</RadioGroupItem>
-            <RadioGroupItem value="option4">option4</RadioGroupItem>
-            <RadioGroupItem value="option5">option5</RadioGroupItem>
-          </RadioGroup>
+          <span className="text-center font-medium">{followingQuestion?.question}</span>
+
+          {/* 분리한 CheckboxGroup 사용 */}
+          <CheckboxGroup className="w-full" value={selectedIds} onValueChange={setSelectedIds}>
+            {followingQuestion?.keywords.map((keyword) => (
+              // <CheckboxGroupItem key={keyword.name} value={keyword.id.toString()}>
+              <CheckboxGroupItem key={keyword.name} value={keyword.name}>
+                {keyword.name}
+              </CheckboxGroupItem>
+            ))}
+          </CheckboxGroup>
         </div>
-        <DialogFooter>
-          <Button onClick={handlePostCompleteTask}>{t('QuestionDialog.goToMain')}</Button>
+
+        <DialogFooter className="px-5">
+          <Button className="w-full" onClick={handlePostCompleteTask} disabled={selectedIds.length === 0}>
+            {t('QuestionDialog.confirm')}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -129,6 +129,7 @@
     }
   },
   "QuestionDialog": {
+    "confirm": "확인",
     "goToMain": "메인 페이지로 이동",
     "next": "다음",
     "skip": "건너뛰기",
@@ -161,6 +162,7 @@
     "restart": "다시 시작하기"
   },
   "Step4": {
+    "done": "완료",
     "not-yet": "아직 안 끝남",
     "subTitle": "완료한 것으로 기록할까요?",
     "timeApprox": "{{time}}",

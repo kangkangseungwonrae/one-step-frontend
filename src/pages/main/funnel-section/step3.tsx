@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 
 import useFunnelStore from '../stores/useFunnelStore';
 import { Button } from '@/components/ui/button';
@@ -18,23 +19,27 @@ const formatTime = (time: number) => {
 };
 
 export default function Step3({ pausedTime = 0, onNext }: Step3Props) {
+  const navigate = useNavigate();
   const selectedTask = useFunnelStore((state) => state.selectedTask);
 
-  if (!selectedTask) {
-    return null;
-  }
-
-  const { description, icon } = selectedTask;
+  // Redirect if no selected task
+  useEffect(() => {
+    if (!selectedTask) {
+      navigate('/', { replace: true });
+    }
+  }, [selectedTask, navigate]);
 
   const { t } = useTranslation();
   const [isPaused, setIsPaused] = useState(false);
   const [curTime, setCurTime] = useState(pausedTime);
 
+  // Initialize time on mount or when pausedTime changes
   useEffect(() => {
     setCurTime(pausedTime);
     setIsPaused(false);
   }, [selectedTask, pausedTime]);
 
+  // Timer effect
   useEffect(() => {
     if (isPaused) return;
 
@@ -44,6 +49,9 @@ export default function Step3({ pausedTime = 0, onNext }: Step3Props) {
 
     return () => clearInterval(interval);
   }, [isPaused]);
+
+  if (!selectedTask) return null;
+  const { description, icon } = selectedTask;
 
   return (
     <main className="flex h-full w-full flex-col items-center gap-4">
@@ -68,7 +76,9 @@ export default function Step3({ pausedTime = 0, onNext }: Step3Props) {
         <Button variant={isPaused ? 'secondary' : 'outline'} onClick={() => setIsPaused((prev) => !prev)}>
           {isPaused ? t('Step3.restart') : t('Step3.pause')}
         </Button>
-        <Button onClick={() => onNext(curTime)}>{t('Step3.done')}</Button>
+        <Button onClick={() => onNext(curTime)} disabled={curTime <= 0}>
+          {t('Step3.done')}
+        </Button>
       </section>
     </main>
   );

@@ -3,7 +3,14 @@ import { api } from '@/api/axios';
 
 import type { Profile, UpdateProfileDto } from './profile/dto';
 import type { TasksParams } from './queries/task/useGetTasks';
-import type { CompletedTask, GetCompleteTaskDto, PostCompleteTaskDto, Task } from './task/dto';
+import type {
+  CompletedTask,
+  FollowingQuestionDto,
+  GetCompleteTaskDto,
+  PostCompleteTaskDto,
+  PostFollowingQuestionDto,
+  Task,
+} from './task/dto';
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export const logout = async (): Promise<AxiosResponse> => {
@@ -43,6 +50,8 @@ export const getTasks = async ({ limit, categories, keywords }: TasksParams): Pr
   return data.tasks;
 };
 
+// * Completed Task API
+
 export const getCompleteTasks = async ({ date }: GetCompleteTaskDto): Promise<CompletedTask[]> => {
   const { data } = await api.get('/completed-tasks', {
     params: {
@@ -57,9 +66,20 @@ export const postCompleteTask = async (body: PostCompleteTaskDto) => {
   return response;
 };
 
-export const getFollowingQuestion = async ({ categories }: { categories?: string[] }) => {
+// * Following Question API
+
+export const getFollowingQuestion = async ({
+  categories,
+}: {
+  categories?: string[];
+}): Promise<FollowingQuestionDto> => {
   const params = new URLSearchParams();
   categories?.forEach((c) => params.append('categories', c));
   const { data } = await api.get(`/following-question?${params.toString()}`);
   return data;
+};
+
+export const postFollowingQuestion = async (body: PostFollowingQuestionDto) => {
+  const response = await api.post('/completed-following-questions', body);
+  return response;
 };
