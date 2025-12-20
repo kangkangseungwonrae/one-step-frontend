@@ -109,7 +109,11 @@ export default function FunnelSection() {
       console.info({ categories, keywords });
 
       patchProfile(
-        { onboarding: true, categories, keywords }
+        {
+          onboarding: true,
+          categories: Array.from(categoriesSet).map((name) => ({ name })),
+          keywords: Array.from(keywordsSet).map((name) => ({ name })),
+        }
         // {
         //   onSuccess: () => {
         //     navigate('/');
