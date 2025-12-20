@@ -10,13 +10,26 @@ import TaskIcon from './task-icon';
 import type { Task } from '@/api/task/dto';
 
 interface TaskCardProps {
-  task: Task;
+  task: Task | null;
   onClick?: () => void;
   hover?: boolean;
 }
 
 export default function TaskCard({ task, onClick, hover = false }: TaskCardProps) {
   const { t } = useTranslation();
+  if (!task) {
+    return (
+      <Card className="bg-card">
+        <CardContent className="flex aspect-square flex-col items-center justify-center text-muted-foreground">
+          <div className="flex items-center justify-center w-12 h-12 rounded-full bg-muted/50 mb-4">
+            <span>❌</span>
+          </div>
+          <span className="text-sm font-medium">{t('TaskCard.empty')}</span>
+        </CardContent>
+      </Card>
+    );
+  }
+
   const { description, duration, keywords, icon } = task;
 
   return (

@@ -7,7 +7,7 @@ import MoodDialog from '../components/mood-dialog';
 import QuestionDialog from '../components/question-dialog';
 import TaskIcon from '../components/task-icon';
 import useFunnelStore from '../stores/useFunnelStore';
-import { usePostCompleteTasks } from '@/api/queries/task';
+import { useGetFollowingQuestion, usePostCompleteTasks } from '@/api/queries/task';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -26,6 +26,7 @@ export default function Step4({ curTime, onBack }: Step4Props) {
   const [isQuestionDialogOpen, setIsQuestionDialogOpen] = useState(false);
 
   const { mutate: postCompleteTask } = usePostCompleteTasks();
+  const { data: followingQuestion } = useGetFollowingQuestion({ categories: ['정신 건강', '회복탄력성'] });
 
   useEffect(() => {
     if (!selectedTask) {
@@ -104,7 +105,13 @@ export default function Step4({ curTime, onBack }: Step4Props) {
       <MoodDialog
         isOpen={isMoodDialogOpen}
         setIsOpen={setIsMoodDialogOpen}
-        onNext={() => setIsQuestionDialogOpen(true)}
+        onNext={() => {
+          if (followingQuestion) {
+            setIsQuestionDialogOpen(true);
+          } else {
+            navigate('/', { replace: true });
+          }
+        }}
       />
       <QuestionDialog isOpen={isQuestionDialogOpen} setIsOpen={setIsQuestionDialogOpen} />
     </main>

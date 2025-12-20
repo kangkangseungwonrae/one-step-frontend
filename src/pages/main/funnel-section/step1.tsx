@@ -47,16 +47,26 @@ export default function Step1({ onNext }: { onNext: () => void }) {
         ) : (
           <Carousel opts={{ loop: true }} className="w-full max-w-sm">
             <CarouselContent>
-              {tasks.map((task) => {
-                return (
-                  <CarouselItem key={task.id}>
-                    <TaskCard task={task} onClick={() => onClickTask(task)} hover />
-                  </CarouselItem>
-                );
-              })}
+              {tasks.length > 0 ? (
+                tasks.map((task) => {
+                  return (
+                    <CarouselItem key={task.id}>
+                      <TaskCard task={task} onClick={() => onClickTask(task)} hover />
+                    </CarouselItem>
+                  );
+                })
+              ) : (
+                <CarouselItem>
+                  <TaskCard task={null} />
+                </CarouselItem>
+              )}
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            {tasks.length > 1 && (
+              <>
+                <CarouselPrevious />
+                <CarouselNext />
+              </>
+            )}
           </Carousel>
         )}
       </section>
