@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 
+import useFunnelStore from '../stores/useFunnelStore';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { getEmojiForIcon } from '@/lib/utils';
 
-import type { Task } from '@/api/task/dto';
-
 type Step3Props = {
-  selectedTask: Task;
   pausedTime?: number;
-  onNext: (selectedTask: Task, curTime: number) => void;
+  onNext: (curTime: number) => void;
 };
 
 const formatTime = (time: number) => {
@@ -19,18 +18,28 @@ const formatTime = (time: number) => {
   return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 };
 
-export default function Step3({ selectedTask, pausedTime = 0, onNext }: Step3Props) {
-  const { description, icon } = selectedTask;
+export default function Step3({ pausedTime = 0, onNext }: Step3Props) {
+  const navigate = useNavigate();
+  const selectedTask = useFunnelStore((state) => state.selectedTask);
+
+  // Redirect if no selected task
+  useEffect(() => {
+    if (!selectedTask) {
+      navigate('/', { replace: true });
+    }
+  }, [selectedTask, navigate]);
 
   const { t } = useTranslation();
   const [isPaused, setIsPaused] = useState(false);
   const [curTime, setCurTime] = useState(pausedTime);
 
+  // Initialize time on mount or when pausedTime changes
   useEffect(() => {
     setCurTime(pausedTime);
     setIsPaused(false);
   }, [selectedTask, pausedTime]);
 
+  // Timer effect
   useEffect(() => {
     if (isPaused) return;
 
@@ -40,6 +49,9 @@ export default function Step3({ selectedTask, pausedTime = 0, onNext }: Step3Pro
 
     return () => clearInterval(interval);
   }, [isPaused]);
+
+  if (!selectedTask) return null;
+  const { description, icon } = selectedTask;
 
   return (
     <main className="flex h-full w-full flex-col items-center gap-4">
@@ -64,7 +76,9 @@ export default function Step3({ selectedTask, pausedTime = 0, onNext }: Step3Pro
         <Button variant={isPaused ? 'secondary' : 'outline'} onClick={() => setIsPaused((prev) => !prev)}>
           {isPaused ? t('Step3.restart') : t('Step3.pause')}
         </Button>
-        <Button onClick={() => onNext(selectedTask, curTime)}>{t('Step3.done')}</Button>
+        <Button onClick={() => onNext(curTime)} disabled={curTime <= 0}>
+          {t('Step3.done')}
+        </Button>
       </section>
     </main>
   );

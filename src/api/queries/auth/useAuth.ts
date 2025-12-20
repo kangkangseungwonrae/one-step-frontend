@@ -8,6 +8,6 @@ export const useAuth = () => {
     queryFn: getAuth,
     staleTime: 1000 * 60 * 15, // 15분간 fresh
     gcTime: 1000 * 60 * 15,
-    retry: false,
+    retry: true,
   });
 };

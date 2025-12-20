@@ -1,22 +1,21 @@
 import { useTranslation } from 'react-i18next';
 
-import TaskCard from '../components/task-card';
 import { useGetTasks } from '@/api/queries/task/useGetTasks';
 import { Button } from '@/components/ui/button';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import TaskCard from '@/pages/main/components/task-card';
+import useFunnelStore from '@/pages/main/stores/useFunnelStore';
 
 import type { Task } from '@/api/task/dto';
-
-type Step1Props = {
-  onNext: (task: Task) => void;
-};
 
 /**
  * Step1: 캐러셀 형식의 행동 제안 컴포넌트
  * @param onNext 다음 단계로 이동하는 콜백 함수
  */
-export default function Step1({ onNext }: Step1Props) {
+export default function Step1({ onNext }: { onNext: () => void }) {
   const { t } = useTranslation();
+  const setSelectedTask = useFunnelStore((state) => state.setSelectedTask);
+
   const {
     data: tasks,
     isLoading,
@@ -29,6 +28,11 @@ export default function Step1({ onNext }: Step1Props) {
 
   const handleRefreshTasks = () => {
     refetch();
+  };
+
+  const onClickTask = (task: Task) => {
+    setSelectedTask(task);
+    onNext();
   };
 
   return (
@@ -45,8 +49,8 @@ export default function Step1({ onNext }: Step1Props) {
             <CarouselContent>
               {tasks.map((task) => {
                 return (
-                  <CarouselItem key={task.description}>
-                    <TaskCard task={task} onNext={(task) => onNext(task)} hover />
+                  <CarouselItem key={task.id}>
+                    <TaskCard task={task} onClick={() => onClickTask(task)} hover />
                   </CarouselItem>
                 );
               })}
