@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useGetCompleteTaskCount } from '@/api/queries/task/useGetCompleteTaskCount';
 import Layout from '@/components/layout';
 import { Calendar } from '@/components/ui/calendar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,6 +11,11 @@ import RecordList from './components/record-list';
 
 export default function CalendarPage() {
   const { t } = useTranslation();
+  const { data: completeTaskCount } = useGetCompleteTaskCount({
+    from: dayjs().startOf('month').toISOString(),
+    to: dayjs().endOf('month').toISOString(),
+  });
+
   const [date, setDate] = useState<Date | undefined>(new Date());
 
   const monthYearFormat = t('Calendar.monthYearFormat');
@@ -24,7 +30,7 @@ export default function CalendarPage() {
           <span className="text-2xl font-bold">{t('Calendar.title')}</span>
           <div className="flex items-center gap-2">
             <span>{dayjs(date).format(monthYearFormat)}</span>
-            <span>{t('Calendar.totalActions', { count: 0 })}</span>
+            <span>{t('Calendar.totalActions', { count: completeTaskCount?.total ?? 0 })}</span>
           </div>
         </section>
         <section>

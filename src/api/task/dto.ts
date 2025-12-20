@@ -12,6 +12,11 @@ export interface GetCompleteTaskDto {
   date: string;
 }
 
+export interface GetCompleteTaskCountDto {
+  from: string;
+  to: string;
+}
+
 export interface PostCompleteTaskDto {
   taskId: number;
   completedAt: string;
@@ -24,6 +29,11 @@ export interface CompletedTask {
   completedAt: string;
   duration: number;
   task: Task;
+}
+
+export interface CompleteTaskCountDto {
+  total: number;
+  calendar: { date: string; count: number }[];
 }
 
 export interface FollowingQuestionDto {

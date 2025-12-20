@@ -5,7 +5,9 @@ import type { Profile, UpdateProfileDto } from './profile/dto';
 import type { TasksParams } from './queries/task/useGetTasks';
 import type {
   CompletedTask,
+  CompleteTaskCountDto,
   FollowingQuestionDto,
+  GetCompleteTaskCountDto,
   GetCompleteTaskDto,
   PostCompleteTaskDto,
   PostFollowingQuestionDto,
@@ -64,6 +66,16 @@ export const getCompleteTasks = async ({ date }: GetCompleteTaskDto): Promise<Co
 export const postCompleteTask = async (body: PostCompleteTaskDto) => {
   const response = await api.post('/completed-tasks', body);
   return response;
+};
+
+export const getCompleteTaskCount = async ({ from, to }: GetCompleteTaskCountDto): Promise<CompleteTaskCountDto> => {
+  const { data } = await api.get('/completed-tasks/calendar', {
+    params: {
+      from,
+      to,
+    },
+  });
+  return data;
 };
 
 // * Following Question API
