@@ -2,9 +2,7 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { useShallow } from 'zustand/react/shallow';
 
-import useFunnelStore from '../stores/useFunnelStore';
 import { useGetProfile } from '@/api/queries/profile';
 import { useGetFollowingQuestion } from '@/api/queries/task/useGetFollowingQuestion';
 import { usePostFollowingQuestion } from '@/api/queries/task/usePostFollowingQuestion';
@@ -20,27 +18,21 @@ type QuestionDialogProps = {
 export default function QuestionDialog({ isOpen, setIsOpen }: QuestionDialogProps) {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const selectedTask = useFunnelStore(useShallow((state) => [state.selectedTask, state.selectedMood]));
 
   const { data: profile } = useGetProfile();
+  // TODO: 카테고리 어떤 걸 가져와야 하는지?
   const { data: followingQuestion } = useGetFollowingQuestion({ categories: ['정신 건강', '회복탄력성'] });
   const { mutate: postFollowingQuestion } = usePostFollowingQuestion();
 
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
-  if (!selectedTask) return null;
-
-  // post complete task
-
-  // 제출 로직
   const handlePostCompleteTask = () => {
     if (!followingQuestion) return;
 
     postFollowingQuestion(
       {
         followingQuestionId: followingQuestion.id,
-        // keywordIds: selectedIds.map(Number),
-        keywordIds: [1, 2, 3], // TODO: 임시 하드코딩
+        keywordIds: selectedIds.map(Number),
         completedAt: dayjs().toISOString(),
       },
       {
@@ -75,8 +67,7 @@ export default function QuestionDialog({ isOpen, setIsOpen }: QuestionDialogProp
           {/* 분리한 CheckboxGroup 사용 */}
           <CheckboxGroup className="w-full" value={selectedIds} onValueChange={setSelectedIds}>
             {followingQuestion?.keywords.map((keyword) => (
-              // <CheckboxGroupItem key={keyword.name} value={keyword.id.toString()}>
-              <CheckboxGroupItem key={keyword.name} value={keyword.name}>
+              <CheckboxGroupItem key={keyword.name} value={keyword.id.toString()}>
                 {keyword.name}
               </CheckboxGroupItem>
             ))}
