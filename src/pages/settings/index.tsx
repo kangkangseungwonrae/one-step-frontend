@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router';
 
 import { useGetProfile, useUpdateProfile } from '@/api/queries/profile';
 import { logout } from '@/api/services';
-import Layout from '@/components/layout';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -128,7 +127,7 @@ export default function SettingsPage() {
   const isOtherError = Boolean(nameError && !isMaxLengthError);
 
   return (
-    <Layout hasHeader hasNav>
+    <>
       <SettingsSection title={t('Settings.profile')} icon={UserRound}>
         <div className="flex flex-col gap-2">
           <div className="flex gap-4 items-center">
@@ -210,6 +209,6 @@ export default function SettingsPage() {
           <p className="text-md">onboarding: {profile.onboarding ? 'true' : 'false'}</p>
         </button>
       </div>
-    </Layout>
+    </>
   );
 }

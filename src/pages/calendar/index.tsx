@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useGetCompleteTaskCount } from '@/api/queries/task/useGetCompleteTaskCount';
-import Layout from '@/components/layout';
 import { Calendar } from '@/components/ui/calendar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -37,53 +36,51 @@ export default function CalendarPage() {
   const isoDate = currentDay.toISOString();
 
   return (
-    <Layout hasHeader hasNav>
-      <main className="flex flex-col gap-4">
-        <section className="flex flex-col justify-start">
-          <span className="text-2xl font-bold">{t('Calendar.title')}</span>
-          <div className="flex items-center gap-2">
-            <span className="tabular-nums">{dayjs(displayMonth).format(monthYearFormat)}</span>
-            <span className="tabular-nums">{t('Calendar.totalActions', { count: completeTaskCount?.total ?? 0 })}</span>
-          </div>
-        </section>
-        <section>
-          <Card>
-            <CardContent className="flex justify-center">
-              <Calendar
-                mode="single"
-                selected={date}
-                onSelect={setDate}
-                month={displayMonth}
-                onMonthChange={setMonth}
-                getDayCount={getDayCount}
-              />
-            </CardContent>
-          </Card>
-        </section>
-        <section>
-          <Card>
-            <CardHeader>
-              <CardTitle>
-                <span>
-                  {t('Calendar.dayRecordTitle', {
-                    date: currentDay.format(dayRecordDateFormat),
-                  })}
-                </span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="px-6 overflow-auto h-fit max-h-[calc(114px*5)]">
-              <RecordList date={isoDate} />
-            </CardContent>
-          </Card>
-        </section>
-        <section>
-          <Card>
-            <CardContent className="flex justify-center">
-              <span>{t('Calendar.cheer')}</span>
-            </CardContent>
-          </Card>
-        </section>
-      </main>
-    </Layout>
+    <main className="flex flex-col gap-4">
+      <section className="flex flex-col justify-start">
+        <span className="text-2xl font-bold">{t('Calendar.title')}</span>
+        <div className="flex items-center gap-2">
+          <span className="tabular-nums">{dayjs(displayMonth).format(monthYearFormat)}</span>
+          <span className="tabular-nums">{t('Calendar.totalActions', { count: completeTaskCount?.total ?? 0 })}</span>
+        </div>
+      </section>
+      <section>
+        <Card>
+          <CardContent className="flex justify-center">
+            <Calendar
+              mode="single"
+              selected={date}
+              onSelect={setDate}
+              month={displayMonth}
+              onMonthChange={setMonth}
+              getDayCount={getDayCount}
+            />
+          </CardContent>
+        </Card>
+      </section>
+      <section>
+        <Card>
+          <CardHeader>
+            <CardTitle>
+              <span>
+                {t('Calendar.dayRecordTitle', {
+                  date: currentDay.format(dayRecordDateFormat),
+                })}
+              </span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="px-6 overflow-auto h-fit max-h-[calc(114px*5)]">
+            <RecordList date={isoDate} />
+          </CardContent>
+        </Card>
+      </section>
+      <section>
+        <Card>
+          <CardContent className="flex justify-center">
+            <span>{t('Calendar.cheer')}</span>
+          </CardContent>
+        </Card>
+      </section>
+    </main>
   );
 }

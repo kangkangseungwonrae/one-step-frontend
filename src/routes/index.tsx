@@ -1,6 +1,8 @@
 import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router';
 
+import Layout from '@/components/layout';
+
 const CalendarPage = lazy(() => import('@/pages/calendar'));
 const LoginPage = lazy(() => import('@/pages/login'));
 const MainPage = lazy(() => import('@/pages/main'));
@@ -15,23 +17,22 @@ export const router = createBrowserRouter([
     element: <PublicRoutes />,
     children: [
       { path: '/login', Component: LoginPage },
-      {
-        path: '*',
-        Component: NotFoundPage,
-      },
+      { path: '*', Component: NotFoundPage },
     ],
   },
   {
     element: <ProtectedRoute />,
     children: [
-      { path: '/', Component: MainPage },
-      { path: '/onboarding', Component: OnboardingPage },
-      { path: '/calendar', Component: CalendarPage },
-      { path: '/settings', Component: SettingsPage },
       {
-        path: '*',
-        Component: NotFoundPage,
+        element: <Layout />,
+        children: [
+          { path: '/', Component: MainPage },
+          { path: '/calendar', Component: CalendarPage },
+          { path: '/settings', Component: SettingsPage },
+          { path: '/onboarding', Component: OnboardingPage },
+        ],
       },
+      { path: '*', Component: NotFoundPage },
     ],
   },
 ]);
