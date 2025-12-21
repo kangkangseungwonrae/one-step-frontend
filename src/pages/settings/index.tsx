@@ -107,8 +107,16 @@ export default function SettingsPage() {
           setIsEditingName(false);
           setNameError(null);
         },
-        onError: () => {
-          setNameError('닉네임 저장에 실패했습니다. 잠시 후 다시 시도해주세요.');
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onError: (error: any) => {
+          // 서버 응답 메시지에 따라 에러 문구 분기 처리
+          const serverMessage = error?.response?.data?.message;
+
+          if (serverMessage === 'Profile name already exists') {
+            setNameError('이미 사용 중인 닉네임입니다.');
+          } else {
+            setNameError('닉네임 저장에 실패했습니다. 잠시 후 다시 시도해주세요.');
+          }
         },
       }
     );
