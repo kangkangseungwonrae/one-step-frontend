@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
+import { useGetProfile } from '@/api/queries/profile';
 import { useGetTasks } from '@/api/queries/task/useGetTasks';
 import { Button } from '@/components/ui/button';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
@@ -14,6 +15,7 @@ import type { Task } from '@/api/task/dto';
  */
 export default function Step1({ onNext }: { onNext: () => void }) {
   const { t } = useTranslation();
+  const { data: profile } = useGetProfile();
   const setSelectedTask = useFunnelStore((state) => state.setSelectedTask);
 
   const {
@@ -38,7 +40,10 @@ export default function Step1({ onNext }: { onNext: () => void }) {
   return (
     <main className="flex h-full flex-col items-center gap-4">
       <section className="flex flex-col gap-2 w-full items-center justify-center">
-        <span className="text-2xl font-bold text-center">{t('Step1.title')}</span>
+        <div className="flex flex-col">
+          <span className="text-2xl font-bold text-center">{t('Step1.greeting', { name: profile.name })}</span>
+          <span className="text-2xl font-bold text-center">{t('Step1.title')}</span>
+        </div>
         <span>{t('Step1.subTitle')}</span>
       </section>
       <section>

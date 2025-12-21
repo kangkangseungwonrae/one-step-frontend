@@ -143,9 +143,10 @@
     "profile": "Profile"
   },
   "Step1": {
-    "subTitle": "If you’re up for it, would you like to try one of these?",
+    "greeting": "Hi {{name}},",
+    "subTitle": "If you're up for it, would you like to try one of these?",
     "swipe-task": "Swipe left or right to see other actions",
-    "title": "It’s enough that you made it here today.",
+    "title": "It's enough that you made it here today.",
     "view-new-task": "View Another Action"
   },
   "Step2": {
