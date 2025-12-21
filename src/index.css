@@ -151,6 +151,61 @@
   }
 }
 
+/* 커스텀 스크롤바 스타일 */
+* {
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: hsl(160 20% 70% / 0.5) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: hsl(160 20% 70% / 0.5);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: background 0.2s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: hsl(160 20% 60% / 0.7);
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background: hsl(160 20% 50% / 0.8);
+  background-clip: padding-box;
+}
+
+.dark * {
+  /* Firefox dark mode */
+  scrollbar-color: hsl(160 15% 50% / 0.6) transparent;
+}
+
+.dark *::-webkit-scrollbar-thumb {
+  background: hsl(160 15% 50% / 0.6);
+  background-clip: padding-box;
+}
+
+.dark *::-webkit-scrollbar-thumb:hover {
+  background: hsl(160 15% 55% / 0.8);
+  background-clip: padding-box;
+}
+
+.dark *::-webkit-scrollbar-thumb:active {
+  background: hsl(160 15% 60% / 0.9);
+  background-clip: padding-box;
+}
+
 @layer base {
   html,
   body,

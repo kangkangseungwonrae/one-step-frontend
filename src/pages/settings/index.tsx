@@ -7,12 +7,12 @@ import { useNavigate } from 'react-router';
 
 import { useGetProfile, useUpdateProfile } from '@/api/queries/profile';
 import { logout } from '@/api/services';
-import Layout from '@/components/layout';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { RadioGroupItem } from '@/components/ui/radio-group';
+import { cn } from '@/lib/utils';
 
 import type { Profile } from '@/api/profile/dto';
 
@@ -93,6 +93,11 @@ export default function SettingsPage() {
       return;
     }
 
+    if (trimmed.length > 20) {
+      setNameError('닉네임은 최대 20자까지 입력할 수 있습니다.');
+      return;
+    }
+
     patchProfile(
       { name: trimmed },
       {
@@ -101,15 +106,28 @@ export default function SettingsPage() {
           setIsEditingName(false);
           setNameError(null);
         },
-        onError: () => {
-          setNameError('닉네임 저장에 실패했습니다. 잠시 후 다시 시도해주세요.');
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onError: (error: any) => {
+          // 서버 응답 메시지에 따라 에러 문구 분기 처리
+          const serverMessage = error?.response?.data?.message;
+
+          if (serverMessage === 'Profile name already exists') {
+            setNameError('이미 사용 중인 닉네임입니다.');
+          } else {
+            setNameError('닉네임 저장에 실패했습니다. 잠시 후 다시 시도해주세요.');
+          }
         },
       }
     );
   };
 
+  // 1. 문구와 색상을 결정하는 헬퍼 변수
+  const isMaxLengthError = nameError === '닉네임은 최대 20자까지 입력할 수 있습니다.';
+  // '20자 초과' 에러가 아니면서 다른 에러가 있는 경우
+  const isOtherError = Boolean(nameError && !isMaxLengthError);
+
   return (
-    <Layout hasHeader hasNav>
+    <>
       <SettingsSection title={t('Settings.profile')} icon={UserRound}>
         <div className="flex flex-col gap-2">
           <div className="flex gap-4 items-center">
@@ -121,8 +139,17 @@ export default function SettingsPage() {
               <div className="relative w-full">
                 <Input
                   value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value.length > 20) {
+                      setNameError('닉네임은 최대 20자까지 입력할 수 있습니다.');
+                      return;
+                    }
+                    setNameError(null);
+                    setUserName(value);
+                  }}
                   className="w-full pr-9"
+                  maxLength={21} // 20자에서 멈추지 않고 에러를 보여주려면 21로 설정하거나 로직 처리
                   readOnly={!isEditingName}
                 />
                 {!isEditingName && (
@@ -135,7 +162,19 @@ export default function SettingsPage() {
                   </button>
                 )}
               </div>
-              {nameError && <p className="text-xs text-destructive">{nameError}</p>}
+
+              {/* 2. 조건부 문구 렌더링 영역 */}
+              {isEditingName && (
+                <p
+                  className={cn(
+                    'text-xs transition-colors',
+                    // 20자 초과 에러거나 다른 에러가 있을 때 destructive 색상 적용
+                    isMaxLengthError || isOtherError ? 'text-destructive' : 'text-muted-foreground'
+                  )}
+                >
+                  {isOtherError ? nameError : '닉네임은 20자 이내로 입력할 수 있어요.'}
+                </p>
+              )}
             </div>
           </div>
           {isEditingName && (
@@ -170,6 +209,6 @@ export default function SettingsPage() {
           <p className="text-md">onboarding: {profile.onboarding ? 'true' : 'false'}</p>
         </button>
       </div>
-    </Layout>
+    </>
   );
 }

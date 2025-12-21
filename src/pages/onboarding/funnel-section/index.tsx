@@ -106,20 +106,11 @@ export default function FunnelSection() {
       const categories = Array.from(categoriesSet);
       const keywords = Array.from(keywordsSet);
 
-      console.info({ categories, keywords });
-
-      patchProfile(
-        {
-          onboarding: true,
-          categories: Array.from(categoriesSet).map((name) => ({ name })),
-          keywords: Array.from(keywordsSet).map((name) => ({ name })),
-        }
-        // {
-        //   onSuccess: () => {
-        //     navigate('/');
-        //   },
-        // }
-      );
+      patchProfile({
+        onboarding: true,
+        categories,
+        keywords,
+      });
     } else {
       funnel.history.push(`step${currentStepIndex + 1}`, () => ({
         answers: newAnswers,

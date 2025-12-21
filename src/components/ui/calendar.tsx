@@ -5,6 +5,8 @@ import { DayButton, DayPicker, getDefaultClassNames, type ChevronProps, type Roo
 import { Button, buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
+type GetDayCountFn = (date: Date) => number;
+
 function Calendar({
   className,
   classNames,
@@ -13,9 +15,11 @@ function Calendar({
   buttonVariant = 'ghost',
   formatters,
   components,
+  getDayCount,
   ...props
 }: React.ComponentProps<typeof DayPicker> & {
   buttonVariant?: React.ComponentProps<typeof Button>['variant'];
+  getDayCount?: GetDayCountFn;
 }) {
   const defaultClassNames = getDefaultClassNames();
 
@@ -111,7 +115,7 @@ function Calendar({
 
           return <ChevronDownIcon className={cn('size-4', className)} {...props} />;
         },
-        DayButton: CalendarDayButton,
+        DayButton: (dayButtonProps) => <CalendarDayButton {...dayButtonProps} getDayCount={getDayCount} />,
         WeekNumber: ({ children, ...props }) => {
           return (
             <td {...props}>
@@ -126,33 +130,57 @@ function Calendar({
   );
 }
 
-function CalendarDayButton({ className, day, modifiers, ...props }: React.ComponentProps<typeof DayButton>) {
-  const defaultClassNames = getDefaultClassNames();
-
+function CalendarDayButton({
+  className,
+  day,
+  modifiers,
+  children,
+  getDayCount,
+  ...props
+}: React.ComponentProps<typeof DayButton> & {
+  getDayCount?: GetDayCountFn;
+}) {
   const ref = React.useRef<HTMLButtonElement>(null);
   React.useEffect(() => {
     if (modifiers.focused) ref.current?.focus();
   }, [modifiers.focused]);
 
+  const count = getDayCount?.(day.date) ?? 0;
+  const hasCount = count > 0;
+  const isSingleSelected =
+    modifiers.selected && !modifiers.range_start && !modifiers.range_end && !modifiers.range_middle;
+
   return (
     <Button
       ref={ref}
       variant="ghost"
-      size="icon"
-      data-day={day.date.toLocaleDateString()}
-      data-selected-single={
-        modifiers.selected && !modifiers.range_start && !modifiers.range_end && !modifiers.range_middle
-      }
-      data-range-start={modifiers.range_start}
-      data-range-end={modifiers.range_end}
-      data-range-middle={modifiers.range_middle}
-      className={cn(
-        'data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground data-[range-middle=true]:bg-accent data-[range-middle=true]:text-accent-foreground data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-ring/50 dark:hover:text-accent-foreground flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:ring-[3px] data-[range-end=true]:rounded-md data-[range-end=true]:rounded-r-md data-[range-middle=true]:rounded-none data-[range-start=true]:rounded-md data-[range-start=true]:rounded-l-md [&>span]:text-xs [&>span]:opacity-70',
-        defaultClassNames.day,
-        className
-      )}
+      className={cn('group relative flex aspect-square w-full p-0 font-normal hover:bg-transparent', className)}
       {...props}
-    />
+    >
+      {/* 숫자와 점을 모두 포함하는 원형 컨테이너 */}
+      <div className="relative m-auto flex h-9 w-9 items-center justify-center">
+        <span
+          className={cn(
+            'flex h-full w-full items-center justify-center rounded-full text-sm transition-all',
+            // Hover: 숫자 원형에 링 추가 (점까지 포함됨)
+            'group-hover:ring-2 group-hover:ring-primary group-hover:ring-offset-1',
+            // 선택 상태 디자인
+            isSingleSelected ? 'bg-primary text-primary-foreground' : 'opacity-70'
+          )}
+        >
+          {children}
+        </span>
+
+        {/* 하단 점: absolute로 숫자 원 안 하단에 배치 */}
+        {hasCount && (
+          <span
+            className={cn(
+              'absolute bottom-[1.5px] left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full transition-colors bg-primary'
+            )}
+          />
+        )}
+      </div>
+    </Button>
   );
 }
 

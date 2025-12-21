@@ -7,4 +7,11 @@ export type Profile = {
   onboarding: boolean;
 };
 
-export type UpdateProfileDto = Partial<Profile>;
+export type UpdateProfileDto = Partial<{
+  categories: string[];
+  image: string;
+  keywords: string[];
+  locale: string;
+  name: string;
+  onboarding: boolean;
+}>;

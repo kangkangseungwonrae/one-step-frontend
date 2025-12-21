@@ -1,4 +1,6 @@
-import * as React from 'react';
+import { createContext, useContext, type ReactNode } from 'react';
+import { useState } from 'react';
+import { useCallback } from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -7,14 +9,14 @@ interface CheckboxGroupContextValue {
   onValueChange: (value: string[]) => void;
 }
 
-const CheckboxGroupContext = React.createContext<CheckboxGroupContextValue | undefined>(undefined);
+const CheckboxGroupContext = createContext<CheckboxGroupContextValue | undefined>(undefined);
 
 interface CheckboxGroupProps {
   value?: string[];
   defaultValue?: string[];
   onValueChange?: (value: string[]) => void;
   className?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export function CheckboxGroup({
@@ -24,10 +26,10 @@ export function CheckboxGroup({
   className,
   children,
 }: CheckboxGroupProps) {
-  const [internalValue, setInternalValue] = React.useState<string[]>(defaultValue);
+  const [internalValue, setInternalValue] = useState<string[]>(defaultValue);
   const value = controlledValue ?? internalValue;
 
-  const handleValueChange = React.useCallback(
+  const handleValueChange = useCallback(
     (newValue: string[]) => {
       if (controlledValue === undefined) {
         setInternalValue(newValue);
@@ -47,12 +49,12 @@ export function CheckboxGroup({
 interface CheckboxGroupItemProps {
   value: string;
   className?: string;
-  children: React.ReactNode;
+  children: ReactNode;
   disabled?: boolean;
 }
 
 export function CheckboxGroupItem({ value, className, children, disabled }: CheckboxGroupItemProps) {
-  const context = React.useContext(CheckboxGroupContext);
+  const context = useContext(CheckboxGroupContext);
 
   if (!context) {
     throw new Error('CheckboxGroupItem must be used within CheckboxGroup');
