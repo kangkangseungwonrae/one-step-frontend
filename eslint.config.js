@@ -10,6 +10,10 @@ import globals from 'globals';
 export default [
   js.configs.recommended,
   {
+    // 빌드 산출물/의존성은 린트 대상에서 제외
+    ignores: ['dist/**', 'dist-ssr/**', 'node_modules/**'],
+  },
+  {
     files: ['**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
       parser: tsParser,
