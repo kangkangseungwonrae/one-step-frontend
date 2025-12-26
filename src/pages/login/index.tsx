@@ -11,7 +11,7 @@ export default function LoginPage() {
   const { data: isAuthenticated } = useAuth();
 
   const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:8080/auth/google/callback';
+    window.location.href = import.meta.env.VITE_API_BASE_URL + '/auth/google/callback';
   };
 
   if (isAuthenticated) {
