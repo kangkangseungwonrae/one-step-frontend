@@ -21,7 +21,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 COPY . .
 
 # Build the application
-RUN pnpm run build
+RUN pnpm run build:production
 
 # Production stage
 FROM nginx:alpine

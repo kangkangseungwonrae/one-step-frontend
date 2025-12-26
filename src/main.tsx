@@ -4,7 +4,10 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import { Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
+import { ErrorBoundary } from 'react-error-boundary';
 import { RouterProvider } from 'react-router';
+
+import NetworkErrorPage from '@/pages/error/NetworkErrorPage';
 
 import { router } from './routes';
 
@@ -24,9 +27,16 @@ const queryClient = new QueryClient({
 
 createRoot(document.getElementById('root')!).render(
   <QueryClientProvider client={queryClient}>
-    <Suspense fallback={null}>
-      <RouterProvider router={router} />
-    </Suspense>
+    <ErrorBoundary
+      FallbackComponent={NetworkErrorPage}
+      onReset={() => {
+        queryClient.clear();
+      }}
+    >
+      <Suspense fallback={null}>
+        <RouterProvider router={router} />
+      </Suspense>
+    </ErrorBoundary>
     <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>
 );
