@@ -56,12 +56,11 @@ api.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    // 단순 인증 상태 확인용 /auth 요청에서는
-    // refresh 시도나 강제 logout 플로우를 태우지 않는다.
-    // -> 401이면 그대로 상위에서 처리 (예: getAuth에서 false 반환)
     const isAuthStatusCheck = originalRequest.url?.endsWith('/auth');
-    if (isAuthStatusCheck) {
-      return Promise.reject(error);
+    if (isAuthStatusCheck && error.response?.status === 401) {
+      // 리다이렉트(window.location.href)는 빼고 로그아웃 처리(세션 정리)만 실행
+      logout();
+      return Promise.reject(error); // 에러를 던져서 useQuery가 isError가 되게 함
     }
 
     // 401 에러이고, 재시도하지 않은 요청인 경우
