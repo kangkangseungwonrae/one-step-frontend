@@ -8,10 +8,7 @@ export const useGetProfile = () => {
   return useQuery<Profile>({
     queryKey: ['profile'],
     queryFn: getProfile,
-    staleTime: 1000 * 60 * 10, // 10분간 fresh
-    gcTime: 1000 * 60 * 60, // 1시간 캐시
-    refetchOnWindowFocus: false, // 탭 전환 시 refetch 안 함
-    retry: false,
-    throwOnError: false,
+    staleTime: 1000 * 60 * 10,
+    retry: false, // 인터셉터가 재시도를 담당하므로 쿼리 자체 재시도는 불필요
   });
 };

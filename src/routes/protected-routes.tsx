@@ -8,8 +8,8 @@ import { useGetProfile } from '@/api/queries/profile';
 export default function ProtectedRoute() {
   const { i18n } = useTranslation();
   const location = useLocation();
-  const { data: isAuthenticated, isLoading: isAuthLoading, isError } = useAuth();
-  const { data: profile, isLoading: isProfileLoading } = useGetProfile();
+  const { data: isAuthenticated, isLoading: isAuthLoading, isError: isAuthError } = useAuth();
+  const { data: profile, isLoading: isProfileLoading, isError: isProfileError } = useGetProfile();
 
   useEffect(() => {
     if (profile?.locale && i18n.language !== profile.locale) {
@@ -18,11 +18,10 @@ export default function ProtectedRoute() {
   }, [profile?.locale]);
 
   if (isAuthLoading || isProfileLoading) {
-    return null; // 또는 <LoadingSpinner />
+    return null;
   }
 
-  // 3. 인증 실패 시 로그인으로
-  if (isError || !isAuthenticated) {
+  if (isAuthError || isProfileError || !isAuthenticated) {
     return <Navigate to="/login" replace state={{ from: location }} />;
   }
 
