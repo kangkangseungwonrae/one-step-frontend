@@ -41,7 +41,7 @@ export default function Step1({ onNext }: { onNext: () => void }) {
     <main className="flex h-full flex-col items-center gap-4">
       <section className="flex flex-col gap-2 w-full items-center justify-center">
         <div className="flex flex-col">
-          <span className="text-2xl font-bold text-center">{t('Step1.greeting', { name: profile.name })}</span>
+          <span className="text-2xl font-bold text-center">{t('Step1.greeting', { name: profile?.name })}</span>
           <span className="text-2xl font-bold text-center">{t('Step1.title')}</span>
         </div>
         <span>{t('Step1.subTitle')}</span>
