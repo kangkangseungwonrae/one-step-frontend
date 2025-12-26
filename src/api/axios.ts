@@ -58,7 +58,6 @@ api.interceptors.response.use(
 
     const isAuthStatusCheck = originalRequest.url?.endsWith('/auth');
     if (isAuthStatusCheck && error.response?.status === 401) {
-      // 리다이렉트(window.location.href)는 빼고 로그아웃 처리(세션 정리)만 실행
       logout();
       return Promise.reject(error); // 에러를 던져서 useQuery가 isError가 되게 함
     }
