@@ -2,6 +2,7 @@ import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router';
 
 import Layout from '@/components/layout';
+import NetworkErrorPage from '@/pages/error/NetworkErrorPage';
 
 const CalendarPage = lazy(() => import('@/pages/calendar'));
 const LoginPage = lazy(() => import('@/pages/login'));
@@ -15,6 +16,7 @@ const NotFoundPage = lazy(() => import('@/pages/error/NotFoundPage'));
 export const router = createBrowserRouter([
   {
     element: <PublicRoutes />,
+    errorElement: <NetworkErrorPage />,
     children: [
       { path: '/login', Component: LoginPage },
       { path: '*', Component: NotFoundPage },
@@ -22,6 +24,7 @@ export const router = createBrowserRouter([
   },
   {
     element: <ProtectedRoute />,
+    errorElement: <NetworkErrorPage />,
     children: [
       {
         element: <Layout />,

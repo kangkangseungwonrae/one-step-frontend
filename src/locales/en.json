@@ -33,6 +33,11 @@
     "skip": "Skip",
     "title": "Which option best matches how you’re feeling right now?"
   },
+  "NetworkError": {
+    "description": "Please check your network status or try again later.",
+    "retry": "Retry",
+    "title": "Connection Failed"
+  },
   "NotFound": {
     "description": "The page you're looking for doesn't exist or has been moved.",
     "goBack": "Go Back",
